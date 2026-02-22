@@ -1153,6 +1153,33 @@
             .contact-visual-text h1 { font-size: 130px; }
             .big-text { font-size: 130px; }
         }
+        /* =========================================
+   GLOBAL CARET CONTROL
+   Caret visible ONLY inside Contact section
+========================================= */
+
+/* Remove caret everywhere by default */
+*,
+*::before,
+*::after {
+  caret-color: transparent !important;
+}
+
+/* Enable caret ONLY inside contact form inputs */
+#contactSection input,
+#contactSection textarea {
+  caret-color: auto !important;
+}
+
+/* Prevent caret on any accidental contenteditable elements outside contact */
+[contenteditable="true"]:not(#contactSection *) {
+  caret-color: transparent !important;
+}
+
+/* Remove mobile tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
     </style>
 </head>
 

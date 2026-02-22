@@ -8,6 +8,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
+                /* Remove text caret and selection from nav, buttons, etc. */
+                nav a, .nav-cta, .mobile-overlay a, .hamburger, .chip, .btn-submit, button {
+                    user-select: none !important;
+                    caret-color: transparent !important;
+                    outline: none !important;
+                }
+                nav a::selection, .nav-cta::selection, .mobile-overlay a::selection, .hamburger::selection, .chip::selection, .btn-submit::selection, button::selection {
+                    background: none;
+                }
         :root {
             --primary-brown: #5B251A;
             --off-white: #FBF0F0;
@@ -72,6 +81,8 @@
             width: 40px;
             height: 40px;
             cursor: pointer;
+            user-select: none;
+            caret-color: transparent;
             z-index: 1100;
             background: none;
             border: none;
@@ -140,6 +151,8 @@
             text-transform: uppercase;
             letter-spacing: -1px;
             cursor: pointer;
+            user-select: none;
+            caret-color: transparent;
             transition: color 0.3s, transform 0.3s;
             transform: translateY(20px);
             opacity: 0;
@@ -204,6 +217,8 @@
             font-weight: 600;
             text-transform: uppercase;
             cursor: pointer;
+            user-select: none;
+            caret-color: transparent;
             transition: color 0.3s;
             padding-bottom: 3px;
             -webkit-tap-highlight-color: transparent;
@@ -233,6 +248,8 @@
         }
 
         .nav-cta {
+                        user-select: none;
+                        caret-color: transparent;
             background: var(--custom-dark);
             color: white !important;
             padding: 11px 24px;
@@ -795,6 +812,8 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
+            user-select: none;
+            caret-color: transparent;
             transition: all 0.3s ease;
             background: white;
             color: var(--custom-dark);
@@ -827,6 +846,15 @@
         }
 
         .btn-submit {
+                        user-select: none;
+                        caret-color: transparent;
+                        user-select: none;
+                        caret-color: transparent;
+                    /* Only allow caret and text selection in input and textarea fields */
+                    input, textarea {
+                        caret-color: auto;
+                        user-select: text;
+                    }
             background: var(--primary-brown);
             color: white;
             border: none;
@@ -902,7 +930,7 @@
                 align-items: center;
                 width: 100%;
                 gap: 0;
-                padding-top: 20px; /* clears the fixed nav */
+                padding-top: 30px; /* clears the fixed nav */
             }
 
             /* Hide letters on mobile after intro settles */

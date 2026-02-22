@@ -608,7 +608,7 @@
 
 <nav id="topNav">
     <div class="logo-link" id="homeLogo">
-        <div class="logo-placeholder"><img src="Index.html/Untitled-1.png"></div>
+        <div class="logo-placeholder"><img src="Untitled-1.png"></div>
     </div>
     <div class="nav-links">
         <a id="navAbout">About</a>
@@ -623,7 +623,7 @@
         <span class="letter irish">S</span>
         <span class="letter letter-t">t</span>
         <div class="frame-container" id="pill">
-            <img id="mainImg" class="frame-img" src="Index.html/cover 2.jpeg">
+            <img id="mainImg" class="frame-img" src="cover 2.jpeg">
         </div>
         <span class="letter irish" id="letterD" style="margin-left:30px;">d</span>
         <span class="letter kolker">i</span>
@@ -649,7 +649,7 @@
         </div>
         <div class="blog-grid">
             <a href="https://medium.com/@deepparinag/the-shift-to-anticipatory-ux-designing-agentic-intelligence-for-cybersecuritys-new-frontier-e09aac135b61" target="_blank" class="blog-card">
-                <img src="Index.html/blog.png">
+                <img src="blog.png">
                 <div class="meta">Deepthi Nagaraj • Dec 9, 2025</div>
                 <h3>The Shift to Anticipatory UX</h3>
                 <p>Designing agentic intelligence for cybersecurity's new frontier. Exploring the move from reactive tools to proactive user experiences.</p>
@@ -663,11 +663,11 @@
     <div class="services-header">Design Services</div>
     <div class="slider-wrapper">
         <div class="services-slider" id="dragSlider">
-            <div class="service-card"><img src="Index.html/Artboard 1.png"><div class="service-info"><h3>Architecture</h3><p>Architecture plans, 3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
-            <div class="service-card"><img src="Index.html/interior.jpg"><div class="service-info"><h3>Interior Design</h3><p>3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
-            <div class="service-card"><img src="Index.html/UI UX.png"><div class="service-info"><h3>Web Design</h3><p>Seamless digital ecosystems and interfaces.</p></div></div>
-            <div class="service-card"><img src="Index.html/app.png"><div class="service-info"><h3>App Design</h3><p>User-centric mobile application experiences.</p></div></div>
-            <div class="service-card"><img src="Index.html/illustATION.jpg"><div class="service-info"><h3>Illustrations</h3><p>Custom visual storytelling and digital art.</p></div></div>
+            <div class="service-card"><img src="Artboard 1.png"><div class="service-info"><h3>Architecture</h3><p>Architecture plans, 3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
+            <div class="service-card"><img src="interior.jpg"><div class="service-info"><h3>Interior Design</h3><p>3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
+            <div class="service-card"><img src="UI UX.png"><div class="service-info"><h3>Web Design</h3><p>Seamless digital ecosystems and interfaces.</p></div></div>
+            <div class="service-card"><img src="app.png"><div class="service-info"><h3>App Design</h3><p>User-centric mobile application experiences.</p></div></div>
+            <div class="service-card"><img src="illustATION.jpg"><div class="service-info"><h3>Illustrations</h3><p>Custom visual storytelling and digital art.</p></div></div>
         </div>
         <div class="scroll-indicator"><div class="scroll-progress" id="scrollProgress"></div></div>
     </div>
@@ -679,7 +679,7 @@
             <span class="name-label">Deepthi Nagaraj</span>
         </div>
         <div class="about-image-container">
-            <img src="Index.html/about me.jpeg" class="about-img">
+            <img src="about me.jpeg" class="about-img">
             <div class="hi-badge" id="hiBadge">Hi</div>
         </div>
         <div class="about-right" style="flex:1; display:flex; flex-direction:column; align-items:flex-start; text-align:left;">
@@ -785,7 +785,7 @@ function playIntro() {
     gsap.set("#contentSides", { opacity: 0 });
     gsap.set("#pill", { width: 190, height: 320, borderRadius: 200, opacity: 1 });
     gsap.set(".letter", { opacity: 1, x: 0, rotation: 0 });
-    mainImg.src = "Index.html/cover 2.jpeg"; 
+    mainImg.src = "cover 2.jpeg"; 
     
     txtArch.style.color = "var(--custom-dark)";
     txtUI.style.color = "var(--custom-dark)";
@@ -796,7 +796,7 @@ function playIntro() {
       .to("#letterD", { rotation: 90, duration: 1 })
       .to(".kolker", { x: 60, duration: 1 }, "<")
       .to(".letter", { opacity: 0, duration: 1 })
-      .set("#mainImg", { attr: { src: "Index.html/Untitled-1.png" } }, "-=0.2")
+      .set("#mainImg", { attr: { src: "Untitled-1.png" } }, "-=0.2")
       .to("#pill", { width: 450, height: 450, borderRadius: 120, duration: 1.5, ease: "power4.inOut" }, "-=0.8")
       .to("#contentSides", { opacity: 1, pointerEvents: "auto", duration: 1 });
 }
@@ -903,7 +903,7 @@ document.getElementById("homeLogo").addEventListener("click", () => {
 
 document.getElementById("btnArch").addEventListener("click", () => {
     document.body.classList.remove("dark-mode");
-    mainImg.src = "Index.html/architect.png";
+    mainImg.src = "architect.png";
     txtArch.style.color = "var(--primary-brown)";
     txtUI.style.color = "var(--custom-dark)";
     txtUI.style.background = "none";
@@ -912,7 +912,7 @@ document.getElementById("btnArch").addEventListener("click", () => {
 
 document.getElementById("btnUI").addEventListener("click", () => {
     document.body.classList.add("dark-mode");
-    mainImg.src = "Index.html/UI UX.png";
+    mainImg.src = "UI UX.png";
     txtArch.style.color = "white";
     txtUI.style.background = "radial-gradient(circle, #77D8E1 0%, #FFFFFF 100%)";
     txtUI.style.webkitBackgroundClip = "text";

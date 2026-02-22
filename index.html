@@ -9,6 +9,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
+    /* Global Reset for UI Elements */
+    nav, 
+    nav a, 
+    .nav-cta, 
+    .mobile-overlay, 
+    .mobile-overlay a, 
+    .hamburger, 
+    .chip, 
+    .btn-submit, 
+    .logo-placeholder,
+    .side-box h2,
+    button {
+        user-select: none !important;
+        -webkit-user-select: none;
+        caret-color: transparent !important;
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    /* Ensure users can still type in actual form fields */
+    input, 
+    textarea {
+        user-select: text !important;
+        -webkit-user-select: text;
+        caret-color: auto !important; /* Brings the cursor back only where needed */
+    }
+
+    :root {
+        --primary-brown: #5B251A;
+        --off-white: #FBF0F0;
+        /* ... existing variables ... */
                 :root {
                         --primary-brown: #5B251A;
                         --off-white: #FBF0F0; 

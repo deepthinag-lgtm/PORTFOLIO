@@ -1180,6 +1180,28 @@
 * {
   -webkit-tap-highlight-color: transparent;
 }
+        /* =========================================
+   REMOVE TEXT (I-BEAM) CURSOR GLOBALLY
+========================================= */
+
+/* Default cursor everywhere */
+html, body, * {
+  cursor: default !important;
+}
+
+/* Keep proper cursors where needed */
+a,
+button,
+.clickable {
+  cursor: pointer !important;
+}
+
+/* Allow text cursor ONLY inside contact inputs */
+#contactSection input,
+#contactSection textarea {
+  cursor: text !important;
+  caret-color: auto !important;
+}
     </style>
 </head>
 

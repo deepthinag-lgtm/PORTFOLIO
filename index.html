@@ -594,11 +594,37 @@
         }
 
         .blog-card .read-link {
-            font-weight: 700;
-            color: #101828;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
+            background: var(--custom-dark);
+            color: #fff;
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 10px 18px 10px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: background 0.25s ease, transform 0.2s ease;
+            margin-top: 4px;
+        }
+
+        .blog-card .read-link:hover {
+            background: var(--primary-brown);
+            transform: translateY(-1px);
+        }
+
+        .blog-card .read-link svg {
+            width: 14px;
+            height: 14px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
         }
 
         /* ===========================
@@ -1412,13 +1438,22 @@
         =========================== */
         @media (max-width: 768px) {
 
-            /* KEY FIX: allow body/html to scroll on mobile hero */
-            body, html {
-                overflow: visible;
+            /* Allow scrolling on mobile for hero page */
+            html {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            body {
+                overflow-x: hidden;
+                overflow-y: auto;
             }
 
             /* When a non-hero section is active, lock scroll on body */
             body.section-locked {
+                overflow: hidden;
+            }
+            html:has(body.section-locked) {
                 overflow: hidden;
             }
 
@@ -1433,18 +1468,16 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
 
-            /* KEY FIX: hero is now a scrollable container */
+            /* Hero scrolls via the body — sizes to content only */
             .hero {
                 position: relative;
                 height: auto !important;
-                min-height: 100dvh;
+                min-height: unset !important;
                 display: flex !important;
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: center;
-                overflow-y: auto;
-                overflow-x: hidden;
-                -webkit-overflow-scrolling: touch;
+                overflow: visible;
                 padding: 0;
                 text-align: center;
             }
@@ -1810,7 +1843,10 @@
                 <div class="meta">Deepthi Nagaraj • Dec 9, 2025</div>
                 <h3>The Shift to Anticipatory UX</h3>
                 <p>Designing agentic intelligence for cybersecurity's new frontier. Exploring the move from reactive tools to proactive user experiences.</p>
-                <div class="read-link">Read post ↗</div>
+                <div class="read-link">
+                    <svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    Read post
+                </div>
             </a>
         </div>
     </div>
@@ -2133,10 +2169,14 @@
 
     /* ---- Section lock helper ---- */
     function lockBodyScroll() {
-        if (isMobile()) document.body.classList.add('section-locked');
+        if (isMobile()) {
+            document.body.classList.add('section-locked');
+            document.documentElement.style.overflow = 'hidden';
+        }
     }
     function unlockBodyScroll() {
         document.body.classList.remove('section-locked');
+        document.documentElement.style.overflow = '';
     }
 
     let currentSection = 'heroSection';

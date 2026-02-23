@@ -189,16 +189,40 @@
         }
 
         .mobile-overlay a .arrow {
-            font-size: 24px;
-            font-weight: 300;
-            opacity: 0.3;
-            transition: opacity 0.3s, transform 0.3s;
-            font-family: 'Montserrat', sans-serif;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(91,37,26,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: opacity 0.3s, transform 0.3s, background 0.3s;
+        }
+
+        .mobile-overlay a .arrow svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .mobile-overlay a:active .arrow {
             opacity: 1;
-            transform: translate(4px, -4px);
+            background: rgba(91,37,26,0.15);
+            transform: translate(3px, -3px);
+        }
+
+        body.dark-mode .mobile-overlay a .arrow {
+            background: rgba(255,255,255,0.08);
+        }
+
+        body.dark-mode .mobile-overlay a:active .arrow {
+            background: rgba(255,255,255,0.16);
         }
 
         .mobile-overlay a:last-child { border-bottom: none; }
@@ -592,8 +616,8 @@
 
         .svc-card:nth-child(1) .svc-card-strip { background: linear-gradient(180deg, rgba(91,37,26,0.88) 0%, rgba(120,60,35,0.75) 100%); }
         .svc-card:nth-child(2) .svc-card-strip { background: linear-gradient(180deg, rgba(101,58,28,0.88) 0%, rgba(140,80,40,0.75) 100%); }
-        .svc-card:nth-child(3) .svc-card-strip { background: linear-gradient(180deg, rgba(40,65,58,0.88) 0%, rgba(60,95,80,0.75) 100%); }
-        .svc-card:nth-child(4) .svc-card-strip { background: linear-gradient(180deg, rgba(30,38,50,0.88) 0%, rgba(50,62,78,0.75) 100%); }
+        .svc-card:nth-child(3) .svc-card-strip { background: linear-gradient(180deg, rgba(30,38,50,0.88) 0%, rgba(50,62,78,0.75) 100%); }
+        .svc-card:nth-child(4) .svc-card-strip { background: linear-gradient(180deg, rgba(40,65,58,0.88) 0%, rgba(60,95,80,0.75) 100%); }
         .svc-card:nth-child(5) .svc-card-strip { background: linear-gradient(180deg, rgba(107,45,26,0.88) 0%, rgba(150,80,55,0.75) 100%); }
 
         /* ---- Rotated title: sits INSIDE the 52px strip ---- */
@@ -644,7 +668,7 @@
            collapsed siblings get flex: 0.3 (very thin)
         ---- */
         .svc-strip.has-active .svc-card          { flex: 0.3; }
-        .svc-strip.has-active .svc-card.svc-active { flex: 2.2; }
+        .svc-strip.has-active .svc-card.svc-active { flex: 1.6; }
 
         /* On expand: fade out the left strip */
         .svc-card.svc-active .svc-card-strip { opacity: 0; pointer-events: none; }
@@ -669,8 +693,8 @@
 
         .svc-card:nth-child(1) .svc-card-bottom { background: linear-gradient(to top, rgba(55,20,10,0.96) 0%, rgba(91,37,26,0.65) 45%, transparent 100%); }
         .svc-card:nth-child(2) .svc-card-bottom { background: linear-gradient(to top, rgba(65,32,12,0.96) 0%, rgba(101,58,28,0.65) 45%, transparent 100%); }
-        .svc-card:nth-child(3) .svc-card-bottom { background: linear-gradient(to top, rgba(18,40,32,0.96) 0%, rgba(40,65,58,0.65) 45%, transparent 100%); }
-        .svc-card:nth-child(4) .svc-card-bottom { background: linear-gradient(to top, rgba(10,15,22,0.96) 0%, rgba(30,38,50,0.65) 45%, transparent 100%); }
+        .svc-card:nth-child(3) .svc-card-bottom { background: linear-gradient(to top, rgba(10,15,22,0.96) 0%, rgba(30,38,50,0.65) 45%, transparent 100%); }
+        .svc-card:nth-child(4) .svc-card-bottom { background: linear-gradient(to top, rgba(18,40,32,0.96) 0%, rgba(40,65,58,0.65) 45%, transparent 100%); }
         .svc-card:nth-child(5) .svc-card-bottom { background: linear-gradient(to top, rgba(65,22,8,0.96) 0%, rgba(107,45,26,0.65) 45%, transparent 100%); }
 
         .svc-card.svc-active .svc-card-bottom { opacity: 1; }
@@ -1485,11 +1509,11 @@
 <div class="mobile-overlay" id="mobileOverlay">
     <span class="menu-label">Navigation</span>
     <div class="nav-items" id="mNavItems">
-        <a id="mNavHome">Home <span class="arrow">↗</span></a>
-        <a id="mNavAbout">About <span class="arrow">↗</span></a>
-        <a id="mNavServices">Services <span class="arrow">↗</span></a>
-        <a id="mNavBlog">Blogs <span class="arrow">↗</span></a>
-        <a class="mobile-cta" id="mNavConnect">Connect <span class="arrow">↗</span></a>
+        <a id="mNavHome">Home <span class="arrow"><svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></span></a>
+        <a id="mNavAbout">About <span class="arrow"><svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></span></a>
+        <a id="mNavServices">Services <span class="arrow"><svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></span></a>
+        <a id="mNavBlog">Blogs <span class="arrow"><svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></span></a>
+        <a class="mobile-cta" id="mNavConnect">Connect <span class="arrow"><svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></span></a>
     </div>
     <span class="menu-footer">studioirathi.design</span>
 </div>

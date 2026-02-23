@@ -1438,23 +1438,24 @@
         =========================== */
         @media (max-width: 768px) {
 
-            /* Allow scrolling on mobile for hero page */
+            /* On mobile, body scrolls the hero. Other sections are fixed overlays. */
+            html, body {
+                overflow-x: hidden;
+            }
+
             html {
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
 
             body {
-                overflow-x: hidden;
                 overflow-y: auto;
             }
 
-            /* When a non-hero section is active, lock scroll on body */
-            body.section-locked {
-                overflow: hidden;
-            }
-            html:has(body.section-locked) {
-                overflow: hidden;
+            /* Lock scroll when a fixed section overlay is showing */
+            body.section-locked,
+            html.section-locked {
+                overflow: hidden !important;
             }
 
             nav {
@@ -1468,9 +1469,9 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
 
-            /* Hero scrolls via the body — sizes to content only */
+            /* Hero: natural document flow, scrollable via body */
             .hero {
-                position: relative;
+                position: relative !important;
                 height: auto !important;
                 min-height: unset !important;
                 display: flex !important;
@@ -2171,11 +2172,12 @@
     function lockBodyScroll() {
         if (isMobile()) {
             document.body.classList.add('section-locked');
-            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.classList.add('section-locked');
         }
     }
     function unlockBodyScroll() {
         document.body.classList.remove('section-locked');
+        document.documentElement.classList.remove('section-locked');
         document.documentElement.style.overflow = '';
     }
 

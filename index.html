@@ -91,17 +91,6 @@
 
         body.dark-mode .hamburger span { background: white; }
 
-        .hamburger.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-        .hamburger.open span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .hamburger.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
         /* ===========================
             MOBILE OVERLAY MENU
         =========================== */
@@ -144,6 +133,77 @@
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s;
             margin-bottom: 28px;
         }
+
+        /* ---- BACK BUTTON ---- */
+        .overlay-back-btn {
+            position: absolute;
+            top: 26px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(91,37,26,0.07);
+            border: 1px solid rgba(91,37,26,0.12);
+            border-radius: 100px;
+            padding: 10px 18px 10px 14px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1) 0.1s,
+                        transform 0.4s cubic-bezier(0.23,1,0.32,1) 0.1s,
+                        background 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 10;
+        }
+
+        .mobile-overlay.visible .overlay-back-btn {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .overlay-back-btn:active {
+            background: rgba(91,37,26,0.15);
+            transform: scale(0.96) !important;
+        }
+
+        body.dark-mode .overlay-back-btn {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        body.dark-mode .overlay-back-btn:active {
+            background: rgba(255,255,255,0.14);
+        }
+
+        .overlay-back-btn svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--primary-brown);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+        }
+
+        .overlay-back-btn:active svg {
+            transform: translateX(-3px);
+        }
+
+        body.dark-mode .overlay-back-btn svg { stroke: var(--teal-glow); }
+
+        .overlay-back-label {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary-brown);
+            white-space: nowrap;
+        }
+
+        body.dark-mode .overlay-back-label { color: var(--teal-glow); }
 
         body.dark-mode .mobile-overlay .menu-label { color: var(--teal-glow); }
 
@@ -1508,6 +1568,10 @@
 
 <!-- MOBILE OVERLAY MENU -->
 <div class="mobile-overlay" id="mobileOverlay">
+    <button class="overlay-back-btn" id="overlayBackBtn" aria-label="Go back">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="overlay-back-label" id="overlayBackLabel">Back</span>
+    </button>
     <span class="menu-label">Navigation</span>
     <div class="nav-items" id="mNavItems">
         <a id="mNavHome">Home <span class="arrow"><svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></span></a>
@@ -1820,8 +1884,21 @@
         });
     }
 
+    const overlayBackBtn = document.getElementById('overlayBackBtn');
+    const overlayBackLabel = document.getElementById('overlayBackLabel');
+
+    const sectionNames = {
+        heroSection:    'Home',
+        aboutSection:   'About',
+        servicesSection:'Services',
+        blogSection:    'Blogs',
+        contactSection: 'Connect'
+    };
+
     function openMobileMenu() {
         updateMobileMenu();
+        // Update back label to current section
+        overlayBackLabel.textContent = 'Back to ' + (sectionNames[currentSection] || 'Home');
         mobileOverlay.style.display = 'flex';
         requestAnimationFrame(() => {
             mobileOverlay.classList.add('visible');
@@ -1836,6 +1913,10 @@
         setTimeout(() => { mobileOverlay.style.display = 'none'; }, 450);
         document.body.style.overflow = '';
     }
+
+    overlayBackBtn.addEventListener('click', () => {
+        closeMobileMenu();
+    });
 
     hamburger.addEventListener('click', () => {
         if (mobileOverlay.classList.contains('visible')) {

@@ -816,6 +816,191 @@
         .svc-close:hover { background: rgba(255,255,255,0.24); }
 
         .svc-strip     { display: flex; }
+
+        /* ===========================
+            MOBILE ACCORDION STACK
+        =========================== */
+        .mob-svc-stack {
+            display: none;
+            flex-direction: column;
+            width: 92%;
+            max-width: 560px;
+            gap: 10px;
+            padding-bottom: 80px;
+        }
+
+        .mob-svc-item {
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.4s ease;
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+        }
+
+        /* collapsed: horizontal strip with image thumbnail + title row */
+        .mob-svc-header {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            height: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mob-svc-thumb {
+            width: 88px;
+            height: 72px;
+            object-fit: cover;
+            flex-shrink: 0;
+            transition: width 0.55s cubic-bezier(0.77,0,0.18,1),
+                        height 0.55s cubic-bezier(0.77,0,0.18,1);
+        }
+
+        .mob-svc-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+            padding: 0 18px 0 16px;
+        }
+
+        .mob-svc-num {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(91,37,26,0.35);
+            letter-spacing: 2px;
+            margin-right: 10px;
+        }
+
+        .mob-svc-name {
+            font-family: 'Figtree', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--custom-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex: 1;
+        }
+
+        .mob-svc-chevron {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(91,37,26,0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.45s cubic-bezier(0.77,0,0.18,1),
+                        background 0.3s ease;
+        }
+
+        .mob-svc-chevron svg {
+            width: 13px;
+            height: 13px;
+            stroke: var(--primary-brown);
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s;
+        }
+
+        /* expanded image panel */
+        .mob-svc-img-expand {
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.55s cubic-bezier(0.77,0,0.18,1);
+        }
+
+        .mob-svc-img-expand img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* expanded content panel */
+        .mob-svc-body {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.55s cubic-bezier(0.77,0,0.18,1);
+        }
+
+        .mob-svc-body-inner {
+            padding: 16px 20px 22px;
+        }
+
+        .mob-svc-body-label {
+            font-family: 'Figtree', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(91,37,26,0.45);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .mob-svc-body-desc {
+            font-family: 'Figtree', sans-serif;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ACTIVE STATE */
+        .mob-svc-item.mob-active {
+            box-shadow: 0 8px 32px rgba(91,37,26,0.18);
+        }
+
+        .mob-svc-item.mob-active .mob-svc-header {
+            height: 64px;
+        }
+
+        .mob-svc-item.mob-active .mob-svc-thumb {
+            width: 64px;
+            height: 64px;
+        }
+
+        .mob-svc-item.mob-active .mob-svc-chevron {
+            transform: rotate(180deg);
+            background: var(--primary-brown);
+        }
+
+        .mob-svc-item.mob-active .mob-svc-chevron svg {
+            stroke: #fff;
+        }
+
+        .mob-svc-item.mob-active .mob-svc-img-expand {
+            height: 220px;
+        }
+
+        .mob-svc-item.mob-active .mob-svc-num {
+            color: var(--primary-brown);
+        }
+
+        /* Divider between thumb and title when collapsed */
+        .mob-svc-header::after {
+            content: '';
+            position: absolute;
+            left: 88px;
+            top: 16px;
+            bottom: 16px;
+            width: 1px;
+            background: rgba(0,0,0,0.07);
+            transition: opacity 0.3s;
+        }
+
+        .mob-svc-item.mob-active .mob-svc-header::after {
+            opacity: 0;
+        }
+
+        /* desktop-only slider placeholder kept for scroll-indicator */
         .slider-wrapper {
             width: 92%;
             display: none;
@@ -1227,7 +1412,15 @@
         =========================== */
         @media (max-width: 768px) {
 
-            body, html { overflow: hidden; }
+            /* KEY FIX: allow body/html to scroll on mobile hero */
+            body, html {
+                overflow: visible;
+            }
+
+            /* When a non-hero section is active, lock scroll on body */
+            body.section-locked {
+                overflow: hidden;
+            }
 
             nav {
                 top: 16px;
@@ -1240,15 +1433,20 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
 
+            /* KEY FIX: hero is now a scrollable container */
             .hero {
+                position: relative;
                 height: auto !important;
-                min-height: auto !important;
-                display: block;
-                padding: 0;
-                text-align: center;
+                min-height: 100dvh;
+                display: flex !important;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
                 overflow-y: auto;
                 overflow-x: hidden;
                 -webkit-overflow-scrolling: touch;
+                padding: 0;
+                text-align: center;
             }
 
             .logo-sequence {
@@ -1259,6 +1457,7 @@
                 width: 100%;
                 gap: 0;
                 padding-top: 90px;
+                flex-shrink: 0;
             }
 
             .letter {
@@ -1281,13 +1480,15 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 0;
-                padding: 20px 24px 60px;
+                padding: 20px 24px 80px;
                 text-align: center;
                 width: 100%;
                 top: auto;
                 left: auto;
                 transform: none;
                 margin-top: 0;
+                /* Allow interaction once visible */
+                pointer-events: auto;
             }
 
             .side-box {
@@ -1321,46 +1522,18 @@
 
             #servicesSection {
                 justify-content: flex-start;
+                align-items: center;
                 padding-top: 90px;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
 
             .svc-strip { display: none !important; }
+            .slider-wrapper { display: none !important; }
 
-            .slider-wrapper {
+            .mob-svc-stack {
                 display: flex !important;
-                width: 92%;
-                gap: 0;
-                align-items: center;
-                flex: 1;
-                overflow: visible;
             }
-
-            .services-slider {
-                flex-direction: column;
-                overflow-x: hidden;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                scroll-snap-type: y mandatory;
-                cursor: default;
-                width: 100%;
-                padding: 8px 0 80px;
-                gap: 20px;
-                max-height: calc(100dvh - 160px);
-            }
-
-            .services-slider:active { cursor: default; }
-
-            .service-card {
-                flex: 0 0 auto;
-                width: 100%;
-                scroll-snap-align: start;
-            }
-
-            .service-card img { height: 220px; }
-
-            .scroll-indicator { display: none; }
 
             .services-header {
                 font-size: 11px;
@@ -1722,16 +1895,119 @@
 
     </div>
 
-    <!-- MOBILE FALLBACK: vertical slider -->
-    <div class="slider-wrapper">
-        <div class="services-slider" id="dragSlider">
-            <div class="service-card"><img src="Artboard 1.png" alt="Architecture"><div class="service-info"><h3>Architecture</h3><p>Architecture plans, 3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
-            <div class="service-card"><img src="interior.jpg" alt="Interior Design"><div class="service-info"><h3>Interior Design</h3><p>3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
-            <div class="service-card"><img src="UI UX.png" alt="Web Design"><div class="service-info"><h3>Web Design</h3><p>Seamless digital ecosystems and interfaces.</p></div></div>
-            <div class="service-card"><img src="app.png" alt="App Design"><div class="service-info"><h3>App Design</h3><p>User-centric mobile application experiences.</p></div></div>
-            <div class="service-card"><img src="illustATION.jpg" alt="Illustrations"><div class="service-info"><h3>Illustrations</h3><p>Custom visual storytelling and digital art.</p></div></div>
+    <!-- MOBILE: vertical accordion stack -->
+    <div class="mob-svc-stack" id="mobSvcStack">
+
+        <div class="mob-svc-item" data-index="0">
+            <div class="mob-svc-header">
+                <img class="mob-svc-thumb" src="Artboard 1.png" alt="Architecture">
+                <div class="mob-svc-title-row">
+                    <span class="mob-svc-num">01</span>
+                    <span class="mob-svc-name">Architecture</span>
+                    <div class="mob-svc-chevron">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-svc-img-expand">
+                <img src="Artboard 1.png" alt="Architecture">
+            </div>
+            <div class="mob-svc-body">
+                <div class="mob-svc-body-inner">
+                    <span class="mob-svc-body-label">Architecture · 01</span>
+                    <p class="mob-svc-body-desc">Architecture plans, 3D models, walkthroughs, renders, execution and turnkey solutions for spaces that endure.</p>
+                </div>
+            </div>
         </div>
-        <div class="scroll-indicator"><div class="scroll-progress" id="scrollProgress"></div></div>
+
+        <div class="mob-svc-item" data-index="1">
+            <div class="mob-svc-header">
+                <img class="mob-svc-thumb" src="interior.jpg" alt="Interior Design">
+                <div class="mob-svc-title-row">
+                    <span class="mob-svc-num">02</span>
+                    <span class="mob-svc-name">Interior Design</span>
+                    <div class="mob-svc-chevron">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-svc-img-expand">
+                <img src="interior.jpg" alt="Interior Design">
+            </div>
+            <div class="mob-svc-body">
+                <div class="mob-svc-body-inner">
+                    <span class="mob-svc-body-label">Interior Design · 02</span>
+                    <p class="mob-svc-body-desc">3D models, walkthroughs, renders, execution and turnkey — crafting interiors that feel alive and grounded.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mob-svc-item" data-index="2">
+            <div class="mob-svc-header">
+                <img class="mob-svc-thumb" src="UI UX.png" alt="Web Design">
+                <div class="mob-svc-title-row">
+                    <span class="mob-svc-num">03</span>
+                    <span class="mob-svc-name">Web Design</span>
+                    <div class="mob-svc-chevron">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-svc-img-expand">
+                <img src="UI UX.png" alt="Web Design">
+            </div>
+            <div class="mob-svc-body">
+                <div class="mob-svc-body-inner">
+                    <span class="mob-svc-body-label">Web Design · 03</span>
+                    <p class="mob-svc-body-desc">Seamless digital ecosystems and user-centric interfaces that bridge beauty with function.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mob-svc-item" data-index="3">
+            <div class="mob-svc-header">
+                <img class="mob-svc-thumb" src="app.png" alt="App Design">
+                <div class="mob-svc-title-row">
+                    <span class="mob-svc-num">04</span>
+                    <span class="mob-svc-name">App Design</span>
+                    <div class="mob-svc-chevron">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-svc-img-expand">
+                <img src="app.png" alt="App Design">
+            </div>
+            <div class="mob-svc-body">
+                <div class="mob-svc-body-inner">
+                    <span class="mob-svc-body-label">App Design · 04</span>
+                    <p class="mob-svc-body-desc">User-centric mobile application experiences — from wireframe to polished, pixel-perfect delivery.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mob-svc-item" data-index="4">
+            <div class="mob-svc-header">
+                <img class="mob-svc-thumb" src="illustATION.jpg" alt="Illustrations">
+                <div class="mob-svc-title-row">
+                    <span class="mob-svc-num">05</span>
+                    <span class="mob-svc-name">Illustrations</span>
+                    <div class="mob-svc-chevron">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-svc-img-expand">
+                <img src="illustATION.jpg" alt="Illustrations">
+            </div>
+            <div class="mob-svc-body">
+                <div class="mob-svc-body-inner">
+                    <span class="mob-svc-body-label">Illustration · 05</span>
+                    <p class="mob-svc-body-desc">Custom visual storytelling and digital art — narrative-driven imagery with a signature earthy aesthetic.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -1835,7 +2111,7 @@
     const navLinks = document.querySelectorAll(".nav-links a");
     const tickerWrap = document.getElementById("masterTicker");
     const progress = document.getElementById("scrollProgress");
-    const slider = document.getElementById('dragSlider');
+    const slider = document.getElementById('dragSlider'); // null on mobile (mob-svc-stack used instead)
     const hamburger = document.getElementById('hamburger');
     const mobileOverlay = document.getElementById('mobileOverlay');
 
@@ -1853,6 +2129,14 @@
         txtUI.style.color = "var(--custom-dark)";
         txtUI.style.background = "none";
         txtUI.style.webkitTextFillColor = "initial";
+    }
+
+    /* ---- Section lock helper ---- */
+    function lockBodyScroll() {
+        if (isMobile()) document.body.classList.add('section-locked');
+    }
+    function unlockBodyScroll() {
+        document.body.classList.remove('section-locked');
     }
 
     let currentSection = 'heroSection';
@@ -1897,7 +2181,6 @@
 
     function openMobileMenu() {
         updateMobileMenu();
-        // Update back label to current section
         overlayBackLabel.textContent = 'Back to ' + (sectionNames[currentSection] || 'Home');
         mobileOverlay.style.display = 'flex';
         requestAnimationFrame(() => {
@@ -1911,7 +2194,13 @@
         mobileOverlay.classList.remove('visible');
         hamburger.classList.remove('open');
         setTimeout(() => { mobileOverlay.style.display = 'none'; }, 450);
-        document.body.style.overflow = '';
+        // Restore correct scroll state
+        if (currentSection === 'heroSection') {
+            unlockBodyScroll();
+            document.body.style.overflow = '';
+        } else {
+            document.body.style.overflow = '';
+        }
     }
 
     overlayBackBtn.addEventListener('click', () => {
@@ -1938,6 +2227,7 @@
         if (isMobile()) {
             const targetW = Math.min(window.innerWidth * 0.8, 340);
             resetMobileHero();
+            unlockBodyScroll();
 
             gsap.set("#pill", {
                 width: 56,
@@ -1990,6 +2280,7 @@
 
     function playMobileReEntry() {
         const targetW = Math.min(window.innerWidth * 0.8, 340);
+        unlockBodyScroll();
 
         const tl = gsap.timeline();
         tl
@@ -2030,7 +2321,7 @@
     }
 
     setCurrentSection('heroSection');
-    if (isMobile()) { hero.style.display = 'block'; }
+    if (isMobile()) { hero.style.display = 'flex'; }
     playIntro();
 
     function hideAll() {
@@ -2048,22 +2339,27 @@
 
     function showHero() {
         setCurrentSection('heroSection');
-        hero.style.display = isMobile() ? "block" : "flex";
+        unlockBodyScroll();
+        hero.style.display = "flex";
     }
     function showAbout() {
         setCurrentSection('aboutSection');
+        lockBodyScroll();
         about.style.display = "flex";
     }
     function showServices() {
         setCurrentSection('servicesSection');
+        lockBodyScroll();
         services.style.display = "flex";
     }
     function showBlog() {
         setCurrentSection('blogSection');
+        lockBodyScroll();
         blog.style.display = "flex";
     }
     function showContact() {
         setCurrentSection('contactSection');
+        lockBodyScroll();
         contact.style.display = "flex";
     }
 
@@ -2165,7 +2461,8 @@
             initSvcAccordion();
             gsap.from(".svc-card", { opacity: 0, y: 36, stagger: 0.08, duration: 0.6, ease: "power3.out" });
         } else {
-            gsap.from(".service-card", { opacity: 0, y: 20, stagger: 0.1, duration: 0.6, ease: "power2.out" });
+            initMobSvcAccordion();
+            gsap.from(".mob-svc-item", { opacity: 0, y: 16, stagger: 0.07, duration: 0.5, ease: "power2.out" });
         }
     });
 
@@ -2196,6 +2493,48 @@
 
         document.getElementById('servicesSection').addEventListener('click', function(e) {
             if (!e.target.closest('.svc-card')) closeAll();
+        });
+    }
+
+    /* ========================================
+       MOBILE VERTICAL ACCORDION — init once
+    ======================================== */
+    let _mobSvcInited = false;
+    function initMobSvcAccordion() {
+        if (!isMobile() || _mobSvcInited) return;
+        _mobSvcInited = true;
+
+        const items = Array.from(document.querySelectorAll('.mob-svc-item'));
+
+        function getBodyHeight(item) {
+            const inner = item.querySelector('.mob-svc-body-inner');
+            return inner ? inner.scrollHeight + 38 : 0; // 38px = top+bottom padding
+        }
+
+        function closeItem(item) {
+            item.classList.remove('mob-active');
+            item.querySelector('.mob-svc-img-expand').style.height = '0';
+            item.querySelector('.mob-svc-body').style.height = '0';
+        }
+
+        function openItem(item) {
+            item.classList.add('mob-active');
+            item.querySelector('.mob-svc-img-expand').style.height = '220px';
+            item.querySelector('.mob-svc-body').style.height = getBodyHeight(item) + 'px';
+            // Smooth scroll so the card header stays visible
+            setTimeout(() => {
+                item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 80);
+        }
+
+        items.forEach(item => {
+            item.querySelector('.mob-svc-header').addEventListener('click', () => {
+                const isOpen = item.classList.contains('mob-active');
+                // Close all
+                items.forEach(i => closeItem(i));
+                // Toggle clicked
+                if (!isOpen) openItem(item);
+            });
         });
     }
 
@@ -2238,7 +2577,8 @@
     document.getElementById("mNavServices").addEventListener("click", function() {
         hideAll();
         showServices();
-        gsap.from(".service-card", { opacity: 0, y: 20, stagger: 0.08, duration: 0.5, ease: "power2.out" });
+        initMobSvcAccordion();
+        gsap.from(".mob-svc-item", { opacity: 0, y: 16, stagger: 0.07, duration: 0.5, ease: "power2.out" });
     });
 
     /* ---- HOME LOGO ---- */
@@ -2278,7 +2618,7 @@
     /* ---- DRAG SLIDER (desktop only) ---- */
     let isDown = false, startX, scrollLeft;
 
-    if (!isMobile()) {
+    if (!isMobile() && slider) {
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             startX = e.pageX - slider.offsetLeft;

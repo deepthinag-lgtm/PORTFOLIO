@@ -133,6 +133,7 @@
             pointer-events: all;
         }
 
+        /* Eyebrow label */
         .mobile-overlay .menu-label {
             font-size: 10px;
             font-weight: 700;
@@ -236,6 +237,7 @@
         .mobile-overlay a:nth-child(3) { transition-delay: 0.18s; }
         .mobile-overlay a:nth-child(4) { transition-delay: 0.23s; }
 
+        /* Connect item styled differently */
         .mobile-overlay a.mobile-cta {
             color: var(--primary-brown);
             border-bottom: none;
@@ -244,6 +246,7 @@
 
         body.dark-mode .mobile-overlay a.mobile-cta { color: var(--teal-glow); }
 
+        /* Bottom contact line */
         .mobile-overlay .menu-footer {
             position: absolute;
             bottom: 48px;
@@ -542,7 +545,7 @@
         }
 
         /* ===========================
-            SERVICES SECTION
+            SERVICES SECTION — ACCORDION (DESKTOP ONLY)
         =========================== */
         #servicesSection {
             position: fixed;
@@ -568,12 +571,13 @@
             text-align: center;
         }
 
+        /* ---- DESKTOP CARD STRIP ---- */
         .svc-strip {
             display: flex;
             gap: 12px;
             width: 88%;
             max-width: 1320px;
-            height: clamp(440px, 60vh, 580px);
+            height: clamp(200px, 17.5vw, 280px);
         }
 
         .svc-card {
@@ -586,6 +590,7 @@
             transition: flex 0.72s cubic-bezier(0.77, 0, 0.18, 1);
         }
 
+        /* Full-bleed image */
         .svc-card-img {
             position: absolute;
             inset: 0;
@@ -599,6 +604,7 @@
             transform: scale(1.04);
         }
 
+        /* ---- Left earthy strip — where rotated title lives ---- */
         .svc-card-strip {
             position: absolute;
             top: 0; left: 0;
@@ -614,10 +620,12 @@
         .svc-card:nth-child(4) .svc-card-strip { background: linear-gradient(180deg, rgba(40,65,58,0.88) 0%, rgba(60,95,80,0.75) 100%); }
         .svc-card:nth-child(5) .svc-card-strip { background: linear-gradient(180deg, rgba(107,45,26,0.88) 0%, rgba(150,80,55,0.75) 100%); }
 
+        /* ---- Rotated title: sits INSIDE the 52px strip ---- */
         .svc-title-v {
             position: absolute;
+            /* vertically centred within card, horizontally centred within the 52px strip */
             top: 50%;
-            left: 26px;
+            left: 26px;               /* half of strip width = dead centre of strip */
             transform: translateX(-50%) translateY(-50%) rotate(-90deg);
             white-space: nowrap;
             font-family: 'Figtree', sans-serif;
@@ -632,6 +640,7 @@
             pointer-events: none;
         }
 
+        /* ---- Number bottom-left of strip ---- */
         .svc-num {
             position: absolute;
             bottom: 16px;
@@ -653,17 +662,25 @@
                         width 0.72s ease;
         }
 
+        /* ---- EXPANDED STATE ----
+           Target: card width ≈ card height (roughly square)
+           Strip height ~520px → flex ratio ≈ 2.2 of total with 5 cards
+           collapsed siblings get flex: 0.3 (very thin)
+        ---- */
         .svc-strip.has-active .svc-card          { flex: 0.3; }
-        .svc-strip.has-active .svc-card.svc-active { flex: 1.6; }
+        .svc-strip.has-active .svc-card.svc-active { flex: 2.2; }
 
+        /* On expand: fade out the left strip */
         .svc-card.svc-active .svc-card-strip { opacity: 0; pointer-events: none; }
         .svc-card.svc-active .svc-title-v    { opacity: 0; }
 
+        /* Number moves to bottom-left of full card, becomes ghost */
         .svc-card.svc-active .svc-num {
             opacity: 0;
             pointer-events: none;
         }
 
+        /* ---- Bottom earthy gradient — ONLY near text, top stays clean ---- */
         .svc-card-bottom {
             position: absolute;
             bottom: 0; left: 0; right: 0;
@@ -682,10 +699,11 @@
 
         .svc-card.svc-active .svc-card-bottom { opacity: 1; }
 
+        /* ---- Expanded text content ---- */
         .svc-card-content {
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            padding: 24px 28px 28px;
+            padding: 18px 22px 22px;
             z-index: 4;
             opacity: 0;
             transform: translateY(14px);
@@ -703,8 +721,6 @@
         .svc-card.svc-active .svc-content-label {
             display: none;
         }
-
-        .svc-content-label {
             font-family: 'Figtree', sans-serif;
             font-size: 10px;
             font-weight: 700;
@@ -717,23 +733,24 @@
 
         .svc-content-title {
             font-family: 'Figtree', sans-serif;
-            font-size: clamp(18px, 1.8vw, 26px);
+            font-size: clamp(15px, 1.4vw, 20px);
             font-weight: 800;
             color: #fff;
-            margin: 0 0 9px;
+            margin: 0 0 7px;
             letter-spacing: -0.3px;
             line-height: 1.1;
         }
 
         .svc-content-desc {
             font-family: 'Figtree', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             color: rgba(255,255,255,0.7);
-            line-height: 1.65;
+            line-height: 1.6;
             margin: 0;
-            max-width: 300px;
+            max-width: 280px;
         }
 
+        /* Close button */
         .svc-close {
             position: absolute;
             top: 14px; right: 14px;
@@ -758,6 +775,7 @@
 
         .svc-close:hover { background: rgba(255,255,255,0.24); }
 
+        /* ---- Desktop shows strip, mobile shows old slider ---- */
         .svc-strip     { display: flex; }
         .slider-wrapper {
             width: 92%;
@@ -915,22 +933,21 @@
 
         .hi-badge {
             position: absolute;
-            top: 50%;
-            left: -70px;
-            transform: translateY(-50%);
-            width: clamp(55px, 6vw, 90px);
-            height: clamp(55px, 6vw, 90px);
+            bottom: 20px;
+            left: -35px;
+            width: clamp(70px, 7vw, 110px);
+            height: clamp(70px, 7vw, 110px);
             background-color: var(--primary-brown);
             color: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: clamp(18px, 2vw, 30px);
+            font-size: clamp(22px, 2.5vw, 36px);
             font-weight: 600;
+            transform: scale(0);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             z-index: 2;
-            opacity: 0;
         }
 
         .about-desc {
@@ -1155,8 +1172,10 @@
         =========================== */
         @media (max-width: 768px) {
 
+            /* Body: allow vertical scroll for all sections on mobile */
             body, html { overflow: hidden; }
 
+            /* NAV: Show hamburger */
             nav {
                 top: 16px;
                 width: calc(100% - 32px);
@@ -1168,6 +1187,7 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
 
+            /* ---- HERO: scrollable column ---- */
             .hero {
                 height: auto !important;
                 min-height: auto !important;
@@ -1179,6 +1199,7 @@
                 -webkit-overflow-scrolling: touch;
             }
 
+            /* Hide all letters on mobile — pill animation only */
             .logo-sequence {
                 display: flex;
                 flex-direction: column;
@@ -1189,10 +1210,12 @@
                 padding-top: 90px;
             }
 
+            /* Hide S, t, d, i, o letters on mobile */
             .letter {
                 display: none !important;
             }
 
+            /* Frame: large centered rounded frame */
             .frame-container {
                 width: min(80vw, 340px);
                 height: min(80vw, 340px);
@@ -1204,6 +1227,7 @@
                 flex-shrink: 0;
             }
 
+            /* Content sides: tight below frame, stacked vertically */
             .content-sides {
                 position: relative;
                 flex-direction: column;
@@ -1234,6 +1258,7 @@
                 letter-spacing: 1px;
             }
 
+            /* Show description on mobile */
             .side-box p {
                 display: block;
                 font-size: 13px;
@@ -1243,10 +1268,12 @@
                 margin: 0 auto;
             }
 
+            /* Divider between role boxes */
             #btnArch {
                 border-bottom: 1px solid rgba(0,0,0,0.08);
             }
 
+            /* ---- SERVICES: hide desktop accordion, show vertical slider ---- */
             #servicesSection {
                 justify-content: flex-start;
                 padding-top: 90px;
@@ -1297,6 +1324,7 @@
                 flex-shrink: 0;
             }
 
+            /* BLOG */
             #blogSection { padding-top: 88px; }
 
             .blog-grid {
@@ -1306,6 +1334,7 @@
 
             .blog-card img { height: 200px; }
 
+            /* ABOUT */
             #aboutSection {
                 justify-content: flex-start;
                 padding-top: 90px;
@@ -1332,8 +1361,6 @@
                 order: 2;
                 width: 200px;
                 height: 280px;
-                /* ✅ FIXED: overflow visible so the badge (position absolute) is not clipped */
-                overflow: visible;
             }
 
             .about-right {
@@ -1346,20 +1373,20 @@
 
             .about-desc { max-width: 100%; text-align: center; }
 
-            /* ✅ FIXED: Mobile hi-badge — right side of image, vertically centred */
             .hi-badge {
-                left: auto !important;
-                right: -40px !important;
-                top: 50% !important;
-                bottom: auto !important;
-                width: 60px !important;
-                height: 60px !important;
-                font-size: 20px !important;
+                left: 50% !important;
+                transform: translateX(-50%) scale(0) !important;
+                bottom: -20px;
+            }
+
+            .hi-badge.shown {
+                transform: translateX(-50%) scale(1) !important;
             }
 
             .ticker-container { padding: 16px 0; }
             .ticker-item { padding: 0 28px; }
 
+            /* CONTACT */
             #contactSection {
                 flex-direction: column;
                 align-items: center;
@@ -1390,6 +1417,7 @@
 
             .chip { font-size: 12px; padding: 7px 14px; }
 
+            /* Swipe hint for all sections */
             .swipe-enabled {
                 touch-action: pan-y;
             }
@@ -1426,6 +1454,114 @@
             .big-text { font-size: 130px; }
         }
 
+        /* =========================================
+           CONTACT MOBILE FOOTER
+        ========================================= */
+        .contact-mobile-footer {
+            display: none; /* hidden on desktop */
+        }
+
+        @media (max-width: 768px) {
+            .contact-mobile-footer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 18px;
+                margin-top: 28px;
+                padding: 28px 0 12px;
+                border-top: 1px solid rgba(0,0,0,0.07);
+                width: 100%;
+                animation: fadeSlideUp 0.55s ease both;
+            }
+
+            body.dark-mode .contact-mobile-footer {
+                border-top-color: rgba(255,255,255,0.08);
+            }
+
+            .contact-mobile-tagline {
+                margin: 0;
+                font-family: 'Marcellus', serif;
+                font-size: clamp(22px, 6vw, 28px);
+                font-weight: 400;
+                line-height: 1.25;
+                text-align: center;
+                letter-spacing: -0.5px;
+                color: var(--custom-dark);
+            }
+
+            body.dark-mode .contact-mobile-tagline { color: var(--off-white); }
+
+            .contact-mobile-tagline em {
+                font-style: italic;
+                color: var(--primary-brown);
+            }
+
+            body.dark-mode .contact-mobile-tagline em { color: var(--teal-glow); }
+
+            .contact-mobile-socials {
+                display: flex;
+                gap: 16px;
+            }
+
+            .cm-social-link {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                text-decoration: none;
+                color: var(--custom-dark);
+                font-size: 13px;
+                font-weight: 600;
+                padding: 10px 20px;
+                border: 1px solid rgba(0,0,0,0.12);
+                border-radius: 100px;
+                transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.25s ease;
+                background: rgba(255,255,255,0.6);
+                backdrop-filter: blur(8px);
+            }
+
+            .cm-social-link:active {
+                transform: scale(0.96);
+                background: var(--primary-brown);
+                color: white;
+                border-color: var(--primary-brown);
+            }
+
+            body.dark-mode .cm-social-link {
+                color: var(--off-white);
+                border-color: rgba(255,255,255,0.12);
+                background: rgba(255,255,255,0.06);
+            }
+
+            body.dark-mode .cm-social-link:active {
+                background: var(--teal-glow);
+                color: #000;
+                border-color: var(--teal-glow);
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           SERVICES — SQUARE CARDS ON DESKTOP
+        ========================================= */
+
+        /* =========================================
+           SMOOTH SECTION TRANSITIONS
+        ========================================= */
+        @keyframes sectionFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        #blogSection[style*="flex"],
+        #servicesSection[style*="flex"],
+        #aboutSection[style*="flex"],
+        #contactSection[style*="flex"] {
+            animation: sectionFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
         *, *::before, *::after {
             caret-color: transparent !important;
         }
@@ -1443,6 +1579,9 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* =========================================
+           CURSOR CONTROL
+        ========================================= */
         html, body, * {
             cursor: default !important;
         }
@@ -1457,6 +1596,9 @@
             caret-color: auto !important;
         }
 
+        /* =========================================
+           MOBILE SWIPE BETWEEN SECTIONS
+        ========================================= */
         @media (max-width: 768px) {
             .section-swipeable {
                 touch-action: pan-y;
@@ -1468,7 +1610,7 @@
 
 <body>
 
-<!-- MOBILE OVERLAY MENU -->
+<!-- MOBILE OVERLAY MENU — sleek modern redesign -->
 <div class="mobile-overlay" id="mobileOverlay">
     <span class="menu-label">Navigation</span>
     <div class="nav-items" id="mNavItems">
@@ -1620,7 +1762,7 @@
 
     </div>
 
-    <!-- MOBILE FALLBACK: vertical slider -->
+    <!-- MOBILE FALLBACK: original vertical slider -->
     <div class="slider-wrapper">
         <div class="services-slider" id="dragSlider">
             <div class="service-card"><img src="Artboard 1.png" alt="Architecture"><div class="service-info"><h3>Architecture</h3><p>Architecture plans, 3D models, walkthrough, Renders, execution, turnkey.</p></div></div>
@@ -1718,6 +1860,20 @@
             </div>
             <button type="submit" class="btn-submit" id="submitBtn">Request a Proposal</button>
         </form>
+        <!-- Mobile-only: warm footer below CTA -->
+        <div class="contact-mobile-footer">
+            <p class="contact-mobile-tagline">Want to start a<br><em>new project</em> or say hello?</p>
+            <div class="contact-mobile-socials">
+                <a href="https://www.linkedin.com/in/deepthi-nagaraj-43ab38204" target="_blank" aria-label="LinkedIn" class="cm-social-link">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://www.instagram.com/studio_irathi/" target="_blank" aria-label="Instagram" class="cm-social-link">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1740,6 +1896,7 @@
 
     const isMobile = () => window.innerWidth <= 768;
 
+    /* ---- LIGHT MODE RESET (always safe to call) ---- */
     function resetToLightMode() {
         document.body.classList.remove("dark-mode");
         mainImg.src = "Untitled-1.png";
@@ -1751,12 +1908,14 @@
         txtUI.style.webkitTextFillColor = "initial";
     }
 
-    let currentSection = 'heroSection';
+    /* ---- TRACK CURRENT SECTION ---- */
+    let currentSection = 'heroSection'; // default
 
     function setCurrentSection(id) {
         currentSection = id;
     }
 
+    /* ---- DYNAMIC HAMBURGER MENU: hide current page's item, show Home if not on hero ---- */
     function updateMobileMenu() {
         const allItems = {
             mNavHome:     'heroSection',
@@ -1768,18 +1927,26 @@
         Object.keys(allItems).forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
-            el.style.display = allItems[id] === currentSection ? 'none' : '';
+            if (allItems[id] === currentSection) {
+                el.style.display = 'none';
+            } else {
+                el.style.display = '';
+            }
         });
+        // Re-stagger visible items for entrance animation
         const visibleItems = Array.from(document.querySelectorAll('#mNavItems a')).filter(a => a.style.display !== 'none');
         visibleItems.forEach((el, i) => {
             el.style.transitionDelay = (0.06 + i * 0.05) + 's';
         });
     }
 
+    /* ---- HAMBURGER MENU ---- */
     function openMobileMenu() {
         updateMobileMenu();
         mobileOverlay.style.display = 'flex';
-        requestAnimationFrame(() => { mobileOverlay.classList.add('visible'); });
+        requestAnimationFrame(() => {
+            mobileOverlay.classList.add('visible');
+        });
         hamburger.classList.add('open');
         document.body.style.overflow = 'hidden';
     }
@@ -1799,6 +1966,7 @@
         }
     });
 
+    /* ---- INTRO ANIMATION ---- */
     function resetMobileHero() {
         resetToLightMode();
         gsap.set("#contentSides", { opacity: 0, pointerEvents: "none" });
@@ -1812,13 +1980,44 @@
             const targetW = Math.min(window.innerWidth * 0.8, 340);
             resetMobileHero();
 
-            gsap.set("#pill", { width: 56, height: 96, borderRadius: 100, opacity: 0, scale: 0.7 });
+            /* On mobile: no letters, just pill birth animation */
+            /* Start pill as tiny pill capsule, grow into rounded square */
+            gsap.set("#pill", {
+                width: 56,
+                height: 96,
+                borderRadius: 100,
+                opacity: 0,
+                scale: 0.7
+            });
 
             tl
+              /* Nav slides in */
               .from("#topNav", { y: -80, opacity: 0, duration: 0.55, ease: "power3.out" })
-              .to("#pill", { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }, "-=0.1")
-              .to("#pill", { width: targetW, height: targetW, borderRadius: 40, duration: 0.9, ease: "expo.inOut" }, "+=0.25")
-              .to("#contentSides", { opacity: 1, pointerEvents: "auto", duration: 0.55, ease: "power2.out" }, "-=0.2");
+
+              /* Pill fades in as small capsule */
+              .to("#pill", {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.4,
+                  ease: "power2.out"
+              }, "-=0.1")
+
+              /* Brief pause — then morph to rounded square */
+              .to("#pill", {
+                  width: targetW,
+                  height: targetW,
+                  borderRadius: 40,
+                  duration: 0.9,
+                  ease: "expo.inOut"
+              }, "+=0.25")
+
+              /* Content fades up from below */
+              .to("#contentSides", {
+                  opacity: 1,
+                  pointerEvents: "auto",
+                  duration: 0.55,
+                  ease: "power2.out"
+              }, "-=0.2");
 
         } else {
             gsap.set("#pill", { width: 190, height: 320, borderRadius: 200, opacity: 1 });
@@ -1839,23 +2038,63 @@
         }
     }
 
+    /* ---- MOBILE RE-ENTRY ANIMATION (world-class) ---- */
     function playMobileReEntry() {
         const targetW = Math.min(window.innerWidth * 0.8, 340);
 
         const tl = gsap.timeline();
         tl
+          /* Fade content out first */
           .to("#contentSides", { opacity: 0, pointerEvents: "none", duration: 0.2, ease: "power2.in" })
-          .to("#pill", { width: 40, height: 68, borderRadius: 100, duration: 0.4, ease: "expo.in", boxShadow: "0 0 0px 0px rgba(91,37,26,0)" })
-          .call(() => { mainImg.src = "Untitled-1.png"; resetToLightMode(); })
-          .to("#pill", { boxShadow: "0 0 36px 18px rgba(91,37,26,0.3)", scale: 1.3, duration: 0.15, ease: "power3.out" })
-          .to("#pill", { width: targetW, height: targetW, borderRadius: 40, scale: 1, boxShadow: "0 0 0px 0px rgba(91,37,26,0)", duration: 0.85, ease: "back.out(1.5)" })
-          .to("#contentSides", { opacity: 1, pointerEvents: "auto", duration: 0.5, ease: "power3.out" }, "-=0.3");
+
+          /* Collapse pill to a tiny glowing capsule */
+          .to("#pill", {
+              width: 40,
+              height: 68,
+              borderRadius: 100,
+              duration: 0.4,
+              ease: "expo.in",
+              boxShadow: "0 0 0px 0px rgba(91,37,26,0)"
+          })
+
+          /* Swap image at smallest size */
+          .call(() => {
+              mainImg.src = "Untitled-1.png";
+              resetToLightMode();
+          })
+
+          /* Flash pulse */
+          .to("#pill", {
+              boxShadow: "0 0 36px 18px rgba(91,37,26,0.3)",
+              scale: 1.3,
+              duration: 0.15,
+              ease: "power3.out"
+          })
+
+          /* Spring-expand to full rounded square */
+          .to("#pill", {
+              width: targetW,
+              height: targetW,
+              borderRadius: 40,
+              scale: 1,
+              boxShadow: "0 0 0px 0px rgba(91,37,26,0)",
+              duration: 0.85,
+              ease: "back.out(1.5)"
+          })
+
+          /* Reveal text content */
+          .to("#contentSides", {
+              opacity: 1,
+              pointerEvents: "auto",
+              duration: 0.5,
+              ease: "power3.out"
+          }, "-=0.3");
     }
 
+    // Set initial state tracking and play intro
     setCurrentSection('heroSection');
     if (isMobile()) { hero.style.display = 'block'; }
     playIntro();
-
     function hideAll() {
         hero.style.display = "none";
         about.style.display = "none";
@@ -1867,12 +2106,9 @@
         document.getElementById("navConnect").style.background = "var(--custom-dark)";
         tickerWrap.style.animationPlayState = "paused";
         closeMobileMenu();
-
-        /* ✅ FIXED: Reset hi-badge every time we leave About — GSAP set to hidden state */
-        const hiBadge = document.getElementById("hiBadge");
-        gsap.set(hiBadge, { scale: 0, opacity: 0, rotation: -40 });
     }
 
+    /* Helper: show hero correctly on both mobile and desktop */
     function showHero() {
         setCurrentSection('heroSection');
         hero.style.display = isMobile() ? "block" : "flex";
@@ -1892,20 +2128,6 @@
     function showContact() {
         setCurrentSection('contactSection');
         contact.style.display = "flex";
-    }
-
-    /* ---- SHARED HI BADGE ANIMATION ---- */
-    function animateHiBadge() {
-        const hiBadge = document.getElementById("hiBadge");
-        gsap.set(hiBadge, { scale: 0, opacity: 1, rotation: -40 });
-        gsap.to(hiBadge, {
-            scale: 1,
-            rotation: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "back.out(1.7)",
-            delay: 0.3
-        });
     }
 
     /* ---- CHIPS ---- */
@@ -1944,6 +2166,7 @@
                 submitBtn.classList.add('success');
                 proposalForm.reset();
                 document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+
                 setTimeout(() => {
                     submitBtn.innerText = "Request a Proposal";
                     submitBtn.classList.remove('success');
@@ -1983,7 +2206,18 @@
         this.classList.add("selected-nav");
         showAbout();
         tickerWrap.style.animationPlayState = "running";
-        animateHiBadge(); /* ✅ FIXED: use shared function */
+        const hiBadge = document.getElementById("hiBadge");
+        if (isMobile()) {
+            gsap.fromTo(hiBadge,
+                { scale: 0, x: "-50%", rotation: -40 },
+                { scale: 1, x: "-50%", rotation: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
+            );
+        } else {
+            gsap.fromTo(hiBadge,
+                { scale: 0, rotation: -40 },
+                { scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
+            );
+        }
     });
 
     document.getElementById("navServices").addEventListener("click", function() {
@@ -1998,7 +2232,9 @@
         }
     });
 
-    /* ---- ACCORDION ---- */
+    /* ========================================
+       ACCORDION — desktop only, init once
+    ======================================== */
     let _svcInited = false;
     function initSvcAccordion() {
         if (isMobile() || _svcInited) return;
@@ -2041,6 +2277,7 @@
         showContact();
         gsap.from("#contactSection .contact-visual-text h1 span", { opacity: 0, x: -20, stagger: 0.08, duration: 0.6, ease: "power2.out", delay: 0.1 });
         gsap.from(".contact-container", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out", delay: 0.3 });
+        gsap.from(".contact-mobile-footer", { opacity: 0, y: 18, duration: 0.55, ease: "power2.out", delay: 0.65 });
     });
 
     document.getElementById("mNavBlog").addEventListener("click", function() {
@@ -2053,7 +2290,14 @@
         hideAll();
         showAbout();
         tickerWrap.style.animationPlayState = "running";
-        animateHiBadge(); /* ✅ FIXED: use shared function — works on mobile too */
+        const hiBadge = document.getElementById("hiBadge");
+        /* Animate content in first, then pop badge */
+        gsap.from(".about-grid", { opacity: 0, y: 24, duration: 0.55, ease: "power3.out" });
+        gsap.set(hiBadge, { scale: 0, x: "-50%", rotation: -45, opacity: 0 });
+        gsap.to(hiBadge, {
+            scale: 1, x: "-50%", rotation: 0, opacity: 1,
+            duration: 0.75, ease: "back.out(2)", delay: 0.45
+        });
     });
 
     document.getElementById("mNavServices").addEventListener("click", function() {
@@ -2131,7 +2375,9 @@
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            if (!isMobile()) { closeMobileMenu(); }
+            if (!isMobile()) {
+                closeMobileMenu();
+            }
         }, 200);
     });
 </script>

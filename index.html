@@ -985,10 +985,10 @@
             height: 100dvh;
             display: none;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             background-color: inherit;
             z-index: 10;
-            padding: 0 8%;
+            padding: 100px 8% 60px;
             gap: 60px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -1000,6 +1000,9 @@
             font-family: 'Marcellus', serif;
             text-align: left;
             color: var(--custom-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .contact-visual-text h1 {

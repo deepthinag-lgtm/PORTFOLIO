@@ -103,28 +103,29 @@
         }
 
         /* ===========================
-            MOBILE OVERLAY MENU
+            MOBILE OVERLAY MENU — SLEEK & MODERN
         =========================== */
         .mobile-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(251, 240, 240, 0.97);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(251, 240, 240, 0.96);
+            backdrop-filter: blur(28px) saturate(1.4);
+            -webkit-backdrop-filter: blur(28px) saturate(1.4);
             z-index: 1050;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            gap: 40px;
+            align-items: flex-start;
+            padding: 0 10vw;
+            gap: 0;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         body.dark-mode .mobile-overlay {
-            background: rgba(10, 10, 10, 0.97);
+            background: rgba(8, 8, 8, 0.96);
         }
 
         .mobile-overlay.visible {
@@ -132,38 +133,114 @@
             pointer-events: all;
         }
 
+        /* Eyebrow label */
+        .mobile-overlay .menu-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-brown);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+            margin-bottom: 28px;
+        }
+
+        body.dark-mode .mobile-overlay .menu-label { color: var(--teal-glow); }
+
+        .mobile-overlay.visible .menu-label {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.04s;
+        }
+
+        .mobile-overlay .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 100%;
+        }
+
         .mobile-overlay a {
             text-decoration: none;
             color: var(--custom-dark);
-            font-size: clamp(28px, 8vw, 48px);
+            font-size: clamp(40px, 12vw, 62px);
             font-weight: 800;
+            font-family: 'Figtree', sans-serif;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
             cursor: pointer;
-            transition: color 0.3s, transform 0.3s;
-            transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+            transform: translateY(28px);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            overflow: hidden;
         }
 
-        body.dark-mode .mobile-overlay a { color: white; }
+        body.dark-mode .mobile-overlay a { 
+            color: white; 
+            border-bottom-color: rgba(255,255,255,0.07);
+        }
+
+        .mobile-overlay a .arrow {
+            font-size: 24px;
+            font-weight: 300;
+            opacity: 0.3;
+            transition: opacity 0.3s, transform 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .mobile-overlay a:active .arrow {
+            opacity: 1;
+            transform: translate(4px, -4px);
+        }
+
+        .mobile-overlay a:last-child { border-bottom: none; }
 
         .mobile-overlay.visible a {
             transform: translateY(0);
             opacity: 1;
         }
 
-        .mobile-overlay a:nth-child(1) { transition-delay: 0.05s; }
-        .mobile-overlay a:nth-child(2) { transition-delay: 0.1s; }
-        .mobile-overlay a:nth-child(3) { transition-delay: 0.15s; }
-        .mobile-overlay a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay a:nth-child(1) { transition-delay: 0.08s; }
+        .mobile-overlay a:nth-child(2) { transition-delay: 0.13s; }
+        .mobile-overlay a:nth-child(3) { transition-delay: 0.18s; }
+        .mobile-overlay a:nth-child(4) { transition-delay: 0.23s; }
 
-        .mobile-overlay .mobile-cta {
-            background: var(--primary-brown);
-            color: white !important;
-            padding: 16px 48px;
-            border-radius: 50px;
-            font-size: clamp(16px, 4vw, 22px) !important;
+        /* Connect item styled differently */
+        .mobile-overlay a.mobile-cta {
+            color: var(--primary-brown);
+            border-bottom: none;
+            margin-top: 12px;
+        }
+
+        body.dark-mode .mobile-overlay a.mobile-cta { color: var(--teal-glow); }
+
+        /* Bottom contact line */
+        .mobile-overlay .menu-footer {
+            position: absolute;
+            bottom: 48px;
+            left: 10vw;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
+        }
+
+        body.dark-mode .mobile-overlay .menu-footer { color: rgba(255,255,255,0.25); }
+
+        .mobile-overlay.visible .menu-footer {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ===========================
@@ -864,10 +941,10 @@
 
         /* ===========================
             RESPONSIVE: MOBILE (≤768px)
-            — TARGETED CHANGES BELOW —
         =========================== */
         @media (max-width: 768px) {
 
+            /* Body: allow vertical scroll for all sections on mobile */
             body, html { overflow: hidden; }
 
             /* NAV: Show hamburger */
@@ -882,14 +959,11 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
 
-            /* ---- HERO: centered column layout, no overlap ---- */
-           .hero {
+            /* ---- HERO: scrollable column ---- */
+            .hero {
                 height: auto !important;
                 min-height: auto !important;
                 display: block;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
                 padding: 0;
                 text-align: center;
                 overflow-y: auto;
@@ -897,7 +971,7 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* logo-sequence pushes below nav bar (nav is 58px + 16px top = 74px total) */
+            /* Hide all letters on mobile — pill animation only */
             .logo-sequence {
                 display: flex;
                 flex-direction: column;
@@ -905,17 +979,15 @@
                 align-items: center;
                 width: 100%;
                 gap: 0;
-                padding-top: 65px; /* reduced gap for mobile */
+                padding-top: 90px;
             }
 
-            /* Hide letters on mobile after intro settles */
+            /* Hide S, t, d, i, o letters on mobile */
             .letter {
-                font-size: clamp(56px, 14vw, 80px);
+                display: none !important;
             }
 
-            .letter-t { margin-right: clamp(10px, 4vw, 22px); }
-
-            /* Frame: large centered rounded square matching reference image */
+            /* Frame: large centered rounded frame */
             .frame-container {
                 width: min(80vw, 340px);
                 height: min(80vw, 340px);
@@ -927,21 +999,18 @@
                 flex-shrink: 0;
             }
 
-            #letterD { margin-left: 10px !important; }
-
-            /* Content sides: stacked vertically, centered, below the frame — no overlap */
+            /* Content sides: tight below frame, stacked vertically */
             .content-sides {
                 position: relative;
                 flex-direction: column;
                 align-items: center;
-                gap: 28px;
-                padding: 28px 24px 48px;
+                gap: 0;
+                padding: 20px 24px 60px;
                 text-align: center;
                 width: 100%;
                 top: auto;
                 left: auto;
                 transform: none;
-                /* ensure it's in normal flow, not absolute */
                 margin-top: 0;
             }
 
@@ -951,6 +1020,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                padding: 20px 0;
             }
 
             .side-box h2 {
@@ -960,7 +1030,7 @@
                 letter-spacing: 1px;
             }
 
-            /* Show description on mobile for reference image match */
+            /* Show description on mobile */
             .side-box p {
                 display: block;
                 font-size: 13px;
@@ -972,7 +1042,6 @@
 
             /* Divider between role boxes */
             #btnArch {
-                padding-bottom: 28px;
                 border-bottom: 1px solid rgba(0,0,0,0.08);
             }
 
@@ -992,7 +1061,6 @@
                 overflow: visible;
             }
 
-            /* Override horizontal to vertical scroll */
             .services-slider {
                 flex-direction: column;
                 overflow-x: hidden;
@@ -1008,18 +1076,14 @@
 
             .services-slider:active { cursor: default; }
 
-            /* Full-width cards stacked vertically */
             .service-card {
                 flex: 0 0 auto;
                 width: 100%;
                 scroll-snap-align: start;
             }
 
-            .service-card img {
-                height: 220px;
-            }
+            .service-card img { height: 220px; }
 
-            /* Hide horizontal scroll indicator on mobile */
             .scroll-indicator { display: none; }
 
             .services-header {
@@ -1121,6 +1185,11 @@
             .contact-container { max-width: 100%; }
 
             .chip { font-size: 12px; padding: 7px 14px; }
+
+            /* Swipe hint for all sections */
+            .swipe-enabled {
+                touch-action: pan-y;
+            }
         }
 
         /* ===========================
@@ -1136,15 +1205,12 @@
                 border-radius: 32px;
             }
 
-            .letter { font-size: 50px; }
-
             .contact-visual-text h1 { font-size: 38px; letter-spacing: -2px; }
 
             .blog-card img { height: 160px; }
 
             .service-card { flex: 0 0 auto; width: 100%; }
 
-            /* Tighter nav clearance on very small screens */
             .logo-sequence { padding-top: 80px; }
         }
 
@@ -1156,66 +1222,69 @@
             .contact-visual-text h1 { font-size: 130px; }
             .big-text { font-size: 130px; }
         }
+
         /* =========================================
-   GLOBAL CARET CONTROL
-   Caret visible ONLY inside Contact section
-========================================= */
+           GLOBAL CARET CONTROL
+        ========================================= */
+        *, *::before, *::after {
+            caret-color: transparent !important;
+        }
 
-/* Remove caret everywhere by default */
-*,
-*::before,
-*::after {
-  caret-color: transparent !important;
-}
+        #contactSection input,
+        #contactSection textarea {
+            caret-color: auto !important;
+        }
 
-/* Enable caret ONLY inside contact form inputs */
-#contactSection input,
-#contactSection textarea {
-  caret-color: auto !important;
-}
+        [contenteditable="true"]:not(#contactSection *) {
+            caret-color: transparent !important;
+        }
 
-/* Prevent caret on any accidental contenteditable elements outside contact */
-[contenteditable="true"]:not(#contactSection *) {
-  caret-color: transparent !important;
-}
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* Remove mobile tap highlight */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
         /* =========================================
-   REMOVE TEXT (I-BEAM) CURSOR GLOBALLY
-========================================= */
+           CURSOR CONTROL
+        ========================================= */
+        html, body, * {
+            cursor: default !important;
+        }
 
-/* Default cursor everywhere */
-html, body, * {
-  cursor: default !important;
-}
+        a, button, .clickable {
+            cursor: pointer !important;
+        }
 
-/* Keep proper cursors where needed */
-a,
-button,
-.clickable {
-  cursor: pointer !important;
-}
+        #contactSection input,
+        #contactSection textarea {
+            cursor: text !important;
+            caret-color: auto !important;
+        }
 
-/* Allow text cursor ONLY inside contact inputs */
-#contactSection input,
-#contactSection textarea {
-  cursor: text !important;
-  caret-color: auto !important;
-}
+        /* =========================================
+           MOBILE SWIPE BETWEEN SECTIONS
+        ========================================= */
+        @media (max-width: 768px) {
+            .section-swipeable {
+                touch-action: pan-y;
+                overscroll-behavior: contain;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<!-- MOBILE OVERLAY MENU -->
+<!-- MOBILE OVERLAY MENU — sleek modern redesign -->
 <div class="mobile-overlay" id="mobileOverlay">
-    <a id="mNavAbout">About</a>
-    <a id="mNavServices">Services</a>
-    <a id="mNavBlog">Blogs</a>
-    <a class="mobile-cta" id="mNavConnect">Connect</a>
+    <span class="menu-label">Navigation</span>
+    <div class="nav-items" id="mNavItems">
+        <a id="mNavHome">Home <span class="arrow">↗</span></a>
+        <a id="mNavAbout">About <span class="arrow">↗</span></a>
+        <a id="mNavServices">Services <span class="arrow">↗</span></a>
+        <a id="mNavBlog">Blogs <span class="arrow">↗</span></a>
+        <a class="mobile-cta" id="mNavConnect">Connect <span class="arrow">↗</span></a>
+    </div>
+    <span class="menu-footer">studioirathi.design</span>
 </div>
 
 <nav id="topNav">
@@ -1319,7 +1388,6 @@ button,
             <div class="ticker-item"><img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/VSCode-Light.svg" alt="VS Code"></div>
             <div class="ticker-item"><img src="https://cdn.simpleicons.org/autodesk/5B251A" alt="Autodesk"></div>
             <div class="ticker-item"><img src="https://cdn.simpleicons.org/sketchup/5B251A" alt="SketchUp"></div>
-            <!-- Duplicate for seamless loop -->
             <div class="ticker-item"><img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Replit-Light.svg" alt="Replit"></div>
             <div class="ticker-item"><img src="https://cdn.worldvectorlogo.com/logos/chatgpt-4.svg" alt="ChatGPT"></div>
             <div class="ticker-item"><img src="https://cdn.simpleicons.org/miro/050505" alt="Miro"></div>
@@ -1401,8 +1469,53 @@ button,
 
     const isMobile = () => window.innerWidth <= 768;
 
+    /* ---- LIGHT MODE RESET (always safe to call) ---- */
+    function resetToLightMode() {
+        document.body.classList.remove("dark-mode");
+        mainImg.src = "Untitled-1.png";
+        txtArch.style.color = "var(--custom-dark)";
+        txtArch.style.background = "none";
+        txtArch.style.webkitTextFillColor = "initial";
+        txtUI.style.color = "var(--custom-dark)";
+        txtUI.style.background = "none";
+        txtUI.style.webkitTextFillColor = "initial";
+    }
+
+    /* ---- TRACK CURRENT SECTION ---- */
+    let currentSection = 'heroSection'; // default
+
+    function setCurrentSection(id) {
+        currentSection = id;
+    }
+
+    /* ---- DYNAMIC HAMBURGER MENU: hide current page's item, show Home if not on hero ---- */
+    function updateMobileMenu() {
+        const allItems = {
+            mNavHome:     'heroSection',
+            mNavAbout:    'aboutSection',
+            mNavServices: 'servicesSection',
+            mNavBlog:     'blogSection',
+            mNavConnect:  'contactSection'
+        };
+        Object.keys(allItems).forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (allItems[id] === currentSection) {
+                el.style.display = 'none';
+            } else {
+                el.style.display = '';
+            }
+        });
+        // Re-stagger visible items for entrance animation
+        const visibleItems = Array.from(document.querySelectorAll('#mNavItems a')).filter(a => a.style.display !== 'none');
+        visibleItems.forEach((el, i) => {
+            el.style.transitionDelay = (0.06 + i * 0.05) + 's';
+        });
+    }
+
     /* ---- HAMBURGER MENU ---- */
     function openMobileMenu() {
+        updateMobileMenu();
         mobileOverlay.style.display = 'flex';
         requestAnimationFrame(() => {
             mobileOverlay.classList.add('visible');
@@ -1414,7 +1527,7 @@ button,
     function closeMobileMenu() {
         mobileOverlay.classList.remove('visible');
         hamburger.classList.remove('open');
-        setTimeout(() => { mobileOverlay.style.display = 'none'; }, 400);
+        setTimeout(() => { mobileOverlay.style.display = 'none'; }, 450);
         document.body.style.overflow = '';
     }
 
@@ -1428,14 +1541,8 @@ button,
 
     /* ---- INTRO ANIMATION ---- */
     function resetMobileHero() {
-        // Reset all text/image state cleanly
-        mainImg.src = "cover 2.jpeg";
-        txtArch.style.color = "var(--custom-dark)";
-        txtUI.style.color = "var(--custom-dark)";
-        txtUI.style.background = "none";
-        txtUI.style.webkitTextFillColor = "initial";
+        resetToLightMode();
         gsap.set("#contentSides", { opacity: 0, pointerEvents: "none" });
-        gsap.set(".letter", { opacity: 1, x: 0, rotation: 0, scale: 1 });
     }
 
     function playIntro() {
@@ -1445,27 +1552,46 @@ button,
         if (isMobile()) {
             const targetW = Math.min(window.innerWidth * 0.8, 340);
             resetMobileHero();
-            // Start pill small (pill shape)
-            gsap.set("#pill", { width: 110, height: 185, borderRadius: 120, opacity: 1, scale: 1 });
 
-            tl.from("#topNav", { y: -80, opacity: 0, duration: 0.7, ease: "power3.out" })
-              .to("#letterD", { rotation: 90, duration: 0.7, ease: "power2.inOut" }, "+=0.1")
-              .to(".kolker", { x: 36, duration: 0.7, ease: "power2.inOut" }, "<")
-              .to(".letter", { opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.1")
-              .set("#mainImg", { attr: { src: "Untitled-1.png" } })
+            /* On mobile: no letters, just pill birth animation */
+            /* Start pill as tiny pill capsule, grow into rounded square */
+            gsap.set("#pill", {
+                width: 56,
+                height: 96,
+                borderRadius: 100,
+                opacity: 0,
+                scale: 0.7
+            });
+
+            tl
+              /* Nav slides in */
+              .from("#topNav", { y: -80, opacity: 0, duration: 0.55, ease: "power3.out" })
+
+              /* Pill fades in as small capsule */
+              .to("#pill", {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.4,
+                  ease: "power2.out"
+              }, "-=0.1")
+
+              /* Brief pause — then morph to rounded square */
               .to("#pill", {
                   width: targetW,
                   height: targetW,
                   borderRadius: 40,
-                  duration: 1.0,
+                  duration: 0.9,
                   ease: "expo.inOut"
-              })
+              }, "+=0.25")
+
+              /* Content fades up from below */
               .to("#contentSides", {
                   opacity: 1,
                   pointerEvents: "auto",
-                  duration: 0.6,
+                  duration: 0.55,
                   ease: "power2.out"
               }, "-=0.2");
+
         } else {
             gsap.set("#pill", { width: 190, height: 320, borderRadius: 200, opacity: 1 });
             gsap.set(".letter", { opacity: 1, x: 0, rotation: 0 });
@@ -1485,38 +1611,40 @@ button,
         }
     }
 
-    /* ---- MOBILE RE-ENTRY ANIMATION (logo tap = world-class) ---- */
+    /* ---- MOBILE RE-ENTRY ANIMATION (world-class) ---- */
     function playMobileReEntry() {
         const targetW = Math.min(window.innerWidth * 0.8, 340);
 
-        // Phase 1: collapse frame to a tiny circle (like a shutter closing)
         const tl = gsap.timeline();
         tl
-          // Fade out content first
-          .to("#contentSides", { opacity: 0, pointerEvents: "none", duration: 0.25, ease: "power2.in" })
+          /* Fade content out first */
+          .to("#contentSides", { opacity: 0, pointerEvents: "none", duration: 0.2, ease: "power2.in" })
 
-          // Collapse pill to a tiny glowing dot at center
+          /* Collapse pill to a tiny glowing capsule */
           .to("#pill", {
-              width: 24,
-              height: 24,
-              borderRadius: 50,
-              duration: 0.45,
+              width: 40,
+              height: 68,
+              borderRadius: 100,
+              duration: 0.4,
               ease: "expo.in",
               boxShadow: "0 0 0px 0px rgba(91,37,26,0)"
           })
 
-          // Swap image at the smallest moment
-          .call(() => { mainImg.src = "Untitled-1.png"; })
+          /* Swap image at smallest size */
+          .call(() => {
+              mainImg.src = "Untitled-1.png";
+              resetToLightMode();
+          })
 
-          // Flash pulse — dot brightens
+          /* Flash pulse */
           .to("#pill", {
-              boxShadow: "0 0 32px 16px rgba(91,37,26,0.35)",
-              scale: 1.4,
-              duration: 0.18,
+              boxShadow: "0 0 36px 18px rgba(91,37,26,0.3)",
+              scale: 1.3,
+              duration: 0.15,
               ease: "power3.out"
           })
 
-          // Spring-expand to full rounded square
+          /* Spring-expand to full rounded square */
           .to("#pill", {
               width: targetW,
               height: targetW,
@@ -1524,10 +1652,10 @@ button,
               scale: 1,
               boxShadow: "0 0 0px 0px rgba(91,37,26,0)",
               duration: 0.85,
-              ease: "back.out(1.4)"
+              ease: "back.out(1.5)"
           })
 
-          // Reveal text content staggered upward
+          /* Reveal text content */
           .to("#contentSides", {
               opacity: 1,
               pointerEvents: "auto",
@@ -1536,9 +1664,10 @@ button,
           }, "-=0.3");
     }
 
+    // Set initial state tracking and play intro
+    setCurrentSection('heroSection');
+    if (isMobile()) { hero.style.display = 'block'; }
     playIntro();
-
-    /* ---- SECTION SWITCHING ---- */
     function hideAll() {
         hero.style.display = "none";
         about.style.display = "none";
@@ -1550,6 +1679,28 @@ button,
         document.getElementById("navConnect").style.background = "var(--custom-dark)";
         tickerWrap.style.animationPlayState = "paused";
         closeMobileMenu();
+    }
+
+    /* Helper: show hero correctly on both mobile and desktop */
+    function showHero() {
+        setCurrentSection('heroSection');
+        hero.style.display = isMobile() ? "block" : "flex";
+    }
+    function showAbout() {
+        setCurrentSection('aboutSection');
+        about.style.display = "flex";
+    }
+    function showServices() {
+        setCurrentSection('servicesSection');
+        services.style.display = "flex";
+    }
+    function showBlog() {
+        setCurrentSection('blogSection');
+        blog.style.display = "flex";
+    }
+    function showContact() {
+        setCurrentSection('contactSection');
+        contact.style.display = "flex";
     }
 
     /* ---- CHIPS ---- */
@@ -1611,7 +1762,7 @@ button,
         hideAll();
         this.classList.add("selected-nav");
         this.style.background = "#5B251A";
-        contact.style.display = "flex";
+        showContact();
         gsap.from("#contactSection .contact-visual-text h1 span", { opacity: 0, x: -30, stagger: 0.1, duration: 0.8, ease: "power2.out" });
         gsap.from(".contact-container", { opacity: 0, y: 30, duration: 0.8, ease: "power2.out", delay: 0.3 });
     });
@@ -1619,24 +1770,24 @@ button,
     document.getElementById("navBlog").addEventListener("click", function() {
         hideAll();
         this.classList.add("selected-nav");
-        blog.style.display = "flex";
+        showBlog();
         gsap.from(".blog-card", { opacity: 0, y: 30, stagger: 0.1, duration: 0.7, ease: "power2.out" });
     });
 
     document.getElementById("navAbout").addEventListener("click", function() {
         hideAll();
         this.classList.add("selected-nav");
-        about.style.display = "flex";
+        showAbout();
         tickerWrap.style.animationPlayState = "running";
         const hiBadge = document.getElementById("hiBadge");
         if (isMobile()) {
-            gsap.fromTo(hiBadge, 
-                { scale: 0, x: "-50%", rotation: -40 }, 
+            gsap.fromTo(hiBadge,
+                { scale: 0, x: "-50%", rotation: -40 },
                 { scale: 1, x: "-50%", rotation: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
             );
         } else {
-            gsap.fromTo(hiBadge, 
-                { scale: 0, rotation: -40 }, 
+            gsap.fromTo(hiBadge,
+                { scale: 0, rotation: -40 },
                 { scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
             );
         }
@@ -1645,28 +1796,36 @@ button,
     document.getElementById("navServices").addEventListener("click", function() {
         hideAll();
         this.classList.add("selected-nav");
-        services.style.display = "flex";
+        showServices();
         gsap.from(".service-card", { opacity: 0, y: 20, stagger: 0.1, duration: 0.6, ease: "power2.out" });
     });
 
     /* ---- MOBILE NAV EVENTS ---- */
+    document.getElementById("mNavHome").addEventListener("click", function() {
+        hideAll();
+        showHero();
+        hero.scrollTop = 0;
+        resetToLightMode();
+        playMobileReEntry();
+    });
+
     document.getElementById("mNavConnect").addEventListener("click", function() {
         hideAll();
         document.getElementById("navConnect").style.background = "#5B251A";
-        contact.style.display = "flex";
+        showContact();
         gsap.from("#contactSection .contact-visual-text h1 span", { opacity: 0, x: -20, stagger: 0.08, duration: 0.6, ease: "power2.out", delay: 0.1 });
         gsap.from(".contact-container", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out", delay: 0.3 });
     });
 
     document.getElementById("mNavBlog").addEventListener("click", function() {
         hideAll();
-        blog.style.display = "flex";
+        showBlog();
         gsap.from(".blog-card", { opacity: 0, y: 20, stagger: 0.1, duration: 0.5, ease: "power2.out" });
     });
 
     document.getElementById("mNavAbout").addEventListener("click", function() {
         hideAll();
-        about.style.display = "flex";
+        showAbout();
         tickerWrap.style.animationPlayState = "running";
         const hiBadge = document.getElementById("hiBadge");
         gsap.fromTo(hiBadge,
@@ -1677,24 +1836,18 @@ button,
 
     document.getElementById("mNavServices").addEventListener("click", function() {
         hideAll();
-        services.style.display = "flex";
+        showServices();
         gsap.from(".service-card", { opacity: 0, y: 20, stagger: 0.08, duration: 0.5, ease: "power2.out" });
     });
 
     /* ---- HOME LOGO ---- */
     document.getElementById("homeLogo").addEventListener("click", () => {
-        const wasHero = hero.style.display !== "none";
         hideAll();
-        hero.style.display = "flex";
+        showHero();
+        resetToLightMode();
         if (isMobile()) {
-            if (wasHero) {
-                // Already on hero — play cinematic re-entry
-                playMobileReEntry();
-            } else {
-                // Coming from another section — scroll hero to top first, then re-entry
-                hero.scrollTop = 0;
-                playMobileReEntry();
-            }
+            hero.scrollTop = 0;
+            playMobileReEntry();
         } else {
             playIntro();
         }
@@ -1705,6 +1858,8 @@ button,
         document.body.classList.remove("dark-mode");
         mainImg.src = "architect.png";
         txtArch.style.color = "var(--primary-brown)";
+        txtArch.style.background = "none";
+        txtArch.style.webkitTextFillColor = "initial";
         txtUI.style.color = "var(--custom-dark)";
         txtUI.style.background = "none";
         txtUI.style.webkitTextFillColor = "initial";
@@ -1747,6 +1902,114 @@ button,
             const percentage = (slider.scrollLeft / maxScroll) * 65;
             progress.style.transform = `translateX(${percentage}px)`;
         });
+    }
+
+    /* ---- MOBILE: VERTICAL SWIPE TO SWITCH SECTIONS ---- */
+    if (isMobile()) {
+        const sectionOrder = ['heroSection', 'aboutSection', 'servicesSection', 'blogSection', 'contactSection'];
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isSwiping = false;
+        let swipeCooldown = false;
+
+        function getCurrentSectionId() {
+            return currentSection;
+        }
+
+        function isAtScrollBoundary(section, direction) {
+            /* direction: 'up' = swiping up (going to next), 'down' = swiping down (going to prev) */
+            if (!section) return true;
+            const el = document.getElementById(section);
+            if (!el) return true;
+
+            const scrollable = el.scrollHeight > el.clientHeight + 2;
+            if (!scrollable) return true;
+
+            if (direction === 'up') {
+                /* Going to next section — only if scrolled to bottom */
+                return el.scrollTop + el.clientHeight >= el.scrollHeight - 10;
+            } else {
+                /* Going to prev section — only if at top */
+                return el.scrollTop <= 2;
+            }
+        }
+
+        function navigateToSection(id) {
+            if (swipeCooldown) return;
+            swipeCooldown = true;
+            setTimeout(() => { swipeCooldown = false; }, 700);
+
+            hideAll();
+
+            if (id === 'heroSection') {
+                showHero();
+                hero.scrollTop = 0;
+                resetToLightMode();
+                playMobileReEntry();
+            } else if (id === 'aboutSection') {
+                showAbout();
+                tickerWrap.style.animationPlayState = 'running';
+                const hiBadge = document.getElementById("hiBadge");
+                gsap.fromTo(hiBadge,
+                    { scale: 0, x: "-50%", rotation: -40 },
+                    { scale: 1, x: "-50%", rotation: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
+                );
+            } else if (id === 'servicesSection') {
+                showServices();
+                gsap.from(".service-card", { opacity: 0, y: 20, stagger: 0.08, duration: 0.5, ease: "power2.out" });
+            } else if (id === 'blogSection') {
+                showBlog();
+                gsap.from(".blog-card", { opacity: 0, y: 20, stagger: 0.1, duration: 0.5, ease: "power2.out" });
+            } else if (id === 'contactSection') {
+                showContact();
+                document.getElementById("navConnect").style.background = "#5B251A";
+                gsap.from("#contactSection .contact-visual-text h1 span", { opacity: 0, x: -20, stagger: 0.08, duration: 0.6, ease: "power2.out", delay: 0.1 });
+                gsap.from(".contact-container", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out", delay: 0.3 });
+            }
+        }
+
+        document.addEventListener('touchstart', (e) => {
+            /* Don't hijack if mobile overlay is open */
+            if (mobileOverlay.classList.contains('visible')) return;
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+            isSwiping = false;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (mobileOverlay.classList.contains('visible')) return;
+            const dy = e.touches[0].clientY - touchStartY;
+            const dx = e.touches[0].clientX - touchStartX;
+            /* Consider it a vertical swipe only if mainly vertical */
+            if (Math.abs(dy) > Math.abs(dx) * 1.5 && Math.abs(dy) > 12) {
+                isSwiping = true;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (mobileOverlay.classList.contains('visible')) return;
+            if (!isSwiping) return;
+
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            const threshold = 80; /* min swipe distance to trigger navigation */
+
+            const currentId = getCurrentSectionId();
+            const currentIdx = sectionOrder.indexOf(currentId);
+
+            if (dy < -threshold) {
+                /* Swiped UP → go to next section */
+                if (!isAtScrollBoundary(currentId, 'up')) return;
+                if (currentIdx < sectionOrder.length - 1) {
+                    navigateToSection(sectionOrder[currentIdx + 1]);
+                }
+            } else if (dy > threshold) {
+                /* Swiped DOWN → go to previous section */
+                if (!isAtScrollBoundary(currentId, 'down')) return;
+                if (currentIdx > 0) {
+                    navigateToSection(sectionOrder[currentIdx - 1]);
+                }
+            }
+        }, { passive: true });
     }
 
     /* ---- RESIZE HANDLER ---- */

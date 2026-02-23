@@ -553,148 +553,139 @@
             gap: 12px;
             width: 88%;
             max-width: 1320px;
-            height: clamp(440px, 60vh, 640px);
+            height: clamp(440px, 60vh, 580px);
         }
 
-        /* Each card — collapses to thin strip, expands on click */
         .svc-card {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
-            flex: 1;                          /* equal collapsed widths */
-            min-width: 68px;
-            transition: flex 0.75s cubic-bezier(0.77, 0, 0.18, 1);
+            flex: 1;
+            min-width: 64px;
+            transition: flex 0.72s cubic-bezier(0.77, 0, 0.18, 1);
         }
 
-        /* ---- full-bleed image fills entire card ---- */
+        /* Full-bleed image */
         .svc-card-img {
             position: absolute;
             inset: 0;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
             object-position: center;
-            transition: transform 0.75s cubic-bezier(0.77, 0, 0.18, 1);
+            transition: transform 0.72s cubic-bezier(0.77, 0, 0.18, 1);
         }
 
         .svc-card:hover:not(.svc-active) .svc-card-img {
             transform: scale(1.04);
         }
 
-        /* ---- Earthy left-side gradient strip (only where title lives) ---- */
-        /* Collapsed: full-height narrow strip on left ~56px wide */
+        /* ---- Left earthy strip — where rotated title lives ---- */
         .svc-card-strip {
             position: absolute;
             top: 0; left: 0;
-            width: 56px;
+            width: 52px;
             height: 100%;
             z-index: 2;
-            transition: width 0.75s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.4s ease;
+            transition: opacity 0.35s ease;
         }
 
-        /* Earthy per-card gradient colours — all warm/terracotta/earth tones */
-        .svc-card:nth-child(1) .svc-card-strip { background: linear-gradient(180deg, rgba(91,37,26,0.92) 0%, rgba(120,60,35,0.78) 100%); }
-        .svc-card:nth-child(2) .svc-card-strip { background: linear-gradient(180deg, rgba(101,58,28,0.92) 0%, rgba(140,80,40,0.78) 100%); }
-        .svc-card:nth-child(3) .svc-card-strip { background: linear-gradient(180deg, rgba(60,80,70,0.92) 0%, rgba(80,110,90,0.78) 100%); }
-        .svc-card:nth-child(4) .svc-card-strip { background: linear-gradient(180deg, rgba(37,44,54,0.92) 0%, rgba(55,65,78,0.78) 100%); }
-        .svc-card:nth-child(5) .svc-card-strip { background: linear-gradient(180deg, rgba(107,45,26,0.92) 0%, rgba(150,80,55,0.78) 100%); }
+        .svc-card:nth-child(1) .svc-card-strip { background: linear-gradient(180deg, rgba(91,37,26,0.88) 0%, rgba(120,60,35,0.75) 100%); }
+        .svc-card:nth-child(2) .svc-card-strip { background: linear-gradient(180deg, rgba(101,58,28,0.88) 0%, rgba(140,80,40,0.75) 100%); }
+        .svc-card:nth-child(3) .svc-card-strip { background: linear-gradient(180deg, rgba(40,65,58,0.88) 0%, rgba(60,95,80,0.75) 100%); }
+        .svc-card:nth-child(4) .svc-card-strip { background: linear-gradient(180deg, rgba(30,38,50,0.88) 0%, rgba(50,62,78,0.75) 100%); }
+        .svc-card:nth-child(5) .svc-card-strip { background: linear-gradient(180deg, rgba(107,45,26,0.88) 0%, rgba(150,80,55,0.75) 100%); }
 
-        /* ---- Collapsed: rotated title in the strip ---- */
+        /* ---- Rotated title: sits INSIDE the 52px strip ---- */
         .svc-title-v {
             position: absolute;
+            /* vertically centred within card, horizontally centred within the 52px strip */
             top: 50%;
-            left: 50%;
-            /* 56px strip = center is at 28px from left — transform handles it */
-            transform: translate(-50%, -50%) rotate(-90deg);
+            left: 26px;               /* half of strip width = dead centre of strip */
+            transform: translateX(-50%) translateY(-50%) rotate(-90deg);
             white-space: nowrap;
             font-family: 'Figtree', sans-serif;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 3.5px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: #fff;
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             z-index: 3;
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
 
-        /* ---- Large ghost number bottom-left of strip ---- */
+        /* ---- Number bottom-left of strip ---- */
         .svc-num {
             position: absolute;
             bottom: 16px;
             left: 0;
-            width: 56px;
+            width: 52px;
             text-align: center;
             font-family: 'Figtree', sans-serif;
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 800;
-            color: rgba(255,255,255,0.55);
+            color: rgba(255,255,255,0.7);
             letter-spacing: -1px;
             line-height: 1;
             z-index: 3;
-            transition: opacity 0.3s ease, left 0.75s cubic-bezier(0.77, 0, 0.18, 1),
-                        font-size 0.5s ease, bottom 0.5s ease, color 0.4s ease;
             pointer-events: none;
+            transition: left 0.72s cubic-bezier(0.77, 0, 0.18, 1),
+                        font-size 0.45s ease,
+                        bottom 0.45s ease,
+                        color 0.35s ease,
+                        width 0.72s ease;
         }
 
-        /* ---- EXPANDED STATE ---- */
-        .svc-strip.has-active .svc-card { flex: 0.35; }
-        .svc-strip.has-active .svc-card.svc-active { flex: 5; }
+        /* ---- EXPANDED STATE ----
+           Target: card width ≈ card height (roughly square)
+           Strip height ~520px → flex ratio ≈ 2.2 of total with 5 cards
+           collapsed siblings get flex: 0.3 (very thin)
+        ---- */
+        .svc-strip.has-active .svc-card          { flex: 0.3; }
+        .svc-strip.has-active .svc-card.svc-active { flex: 2.2; }
 
-        /* On expand: hide narrow strip, show bottom overlay instead */
-        .svc-card.svc-active .svc-card-strip {
-            width: 100%;
-            background: none !important;
+        /* On expand: fade out the left strip */
+        .svc-card.svc-active .svc-card-strip { opacity: 0; pointer-events: none; }
+        .svc-card.svc-active .svc-title-v    { opacity: 0; }
+
+        /* Number moves to bottom-left of full card, becomes ghost */
+        .svc-card.svc-active .svc-num {
             opacity: 0;
             pointer-events: none;
         }
 
-        .svc-card.svc-active .svc-title-v { opacity: 0; }
-
-        /* Expanded: big number repositions to bottom-left of full card */
-        .svc-card.svc-active .svc-num {
-            left: 32px;
-            bottom: 24px;
-            font-size: 80px;
-            color: rgba(255,255,255,0.13);
-            width: auto;
-            text-align: left;
-        }
-
-        /* ---- Bottom text overlay — earthy gradient, ONLY near text area ---- */
+        /* ---- Bottom earthy gradient — ONLY near text, top stays clean ---- */
         .svc-card-bottom {
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 52%;      /* only bottom half — keeps top image clean */
+            height: 55%;
             z-index: 2;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.45s ease 0.2s;
+            transition: opacity 0.4s ease 0.2s;
         }
 
-        /* Per-card earthy bottom gradients */
-        .svc-card:nth-child(1) .svc-card-bottom { background: linear-gradient(to top, rgba(62,24,14,0.97) 0%, rgba(91,37,26,0.7) 50%, transparent 100%); }
-        .svc-card:nth-child(2) .svc-card-bottom { background: linear-gradient(to top, rgba(70,38,16,0.97) 0%, rgba(101,58,28,0.7) 50%, transparent 100%); }
-        .svc-card:nth-child(3) .svc-card-bottom { background: linear-gradient(to top, rgba(28,50,42,0.97) 0%, rgba(50,78,65,0.7) 50%, transparent 100%); }
-        .svc-card:nth-child(4) .svc-card-bottom { background: linear-gradient(to top, rgba(15,20,28,0.97) 0%, rgba(37,44,54,0.7) 50%, transparent 100%); }
-        .svc-card:nth-child(5) .svc-card-bottom { background: linear-gradient(to top, rgba(72,28,12,0.97) 0%, rgba(107,45,26,0.7) 50%, transparent 100%); }
+        .svc-card:nth-child(1) .svc-card-bottom { background: linear-gradient(to top, rgba(55,20,10,0.96) 0%, rgba(91,37,26,0.65) 45%, transparent 100%); }
+        .svc-card:nth-child(2) .svc-card-bottom { background: linear-gradient(to top, rgba(65,32,12,0.96) 0%, rgba(101,58,28,0.65) 45%, transparent 100%); }
+        .svc-card:nth-child(3) .svc-card-bottom { background: linear-gradient(to top, rgba(18,40,32,0.96) 0%, rgba(40,65,58,0.65) 45%, transparent 100%); }
+        .svc-card:nth-child(4) .svc-card-bottom { background: linear-gradient(to top, rgba(10,15,22,0.96) 0%, rgba(30,38,50,0.65) 45%, transparent 100%); }
+        .svc-card:nth-child(5) .svc-card-bottom { background: linear-gradient(to top, rgba(65,22,8,0.96) 0%, rgba(107,45,26,0.65) 45%, transparent 100%); }
 
-        .svc-card.svc-active .svc-card-bottom {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .svc-card.svc-active .svc-card-bottom { opacity: 1; }
 
-        /* ---- Expanded content: sits above bottom overlay ---- */
+        /* ---- Expanded text content ---- */
         .svc-card-content {
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            padding: 28px 32px 32px;
+            padding: 24px 28px 28px;
             z-index: 4;
             opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+            transform: translateY(14px);
+            transition: opacity 0.38s ease 0.3s, transform 0.38s ease 0.3s;
             pointer-events: none;
+            color: #ffffff;
         }
 
         .svc-card.svc-active .svc-card-content {
@@ -703,74 +694,49 @@
             pointer-events: auto;
         }
 
-        /* Sub-label above title (like "3D Design 01" in reference) */
-        .svc-content-label {
+        .svc-card.svc-active .svc-content-label {
+            display: none;
+        }
             font-family: 'Figtree', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3.5px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 8px;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 7px;
             display: block;
         }
 
         .svc-content-title {
             font-family: 'Figtree', sans-serif;
-            font-size: clamp(20px, 2vw, 28px);
+            font-size: clamp(18px, 1.8vw, 26px);
             font-weight: 800;
             color: #fff;
-            margin: 0 0 10px;
-            letter-spacing: -0.5px;
+            margin: 0 0 9px;
+            letter-spacing: -0.3px;
             line-height: 1.1;
         }
 
         .svc-content-desc {
             font-family: 'Figtree', sans-serif;
-            font-size: 12.5px;
-            color: rgba(255,255,255,0.68);
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
             line-height: 1.65;
-            margin: 0 0 20px;
-            max-width: 320px;
+            margin: 0;
+            max-width: 300px;
         }
 
-        .svc-content-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.14);
-            border: 1px solid rgba(255,255,255,0.22);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #fff;
-            font-family: 'Figtree', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 10px 22px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.25s ease, transform 0.2s ease;
-            text-decoration: none;
-        }
-
-        .svc-content-btn:hover {
-            background: rgba(255,255,255,0.24);
-            transform: translateX(3px);
-        }
-
-        /* Close X top-right — visible only on active */
+        /* Close button */
         .svc-close {
             position: absolute;
-            top: 16px; right: 16px;
-            width: 32px; height: 32px;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.18);
+            top: 14px; right: 14px;
+            width: 30px; height: 30px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            color: rgba(255,255,255,0.85);
             cursor: pointer;
             opacity: 0;
             pointer-events: none;
@@ -783,14 +749,13 @@
             pointer-events: auto;
         }
 
-        .svc-close:hover { background: rgba(255,255,255,0.22); }
+        .svc-close:hover { background: rgba(255,255,255,0.24); }
 
-        /* ---- MOBILE: keep original slider, hide strip ---- */
-        .svc-strip { display: flex; }   /* desktop default */
-
+        /* ---- Desktop shows strip, mobile shows old slider ---- */
+        .svc-strip     { display: flex; }
         .slider-wrapper {
             width: 92%;
-            display: none;              /* hidden desktop, shown mobile */
+            display: none;
             flex-direction: column;
             align-items: center;
             gap: 32px;
@@ -1596,7 +1561,7 @@
     <!-- DESKTOP ACCORDION STRIP -->
     <div class="svc-strip" id="svcStrip">
 
-        <div class="svc-card" data-idx="0">
+        <div class="svc-card">
             <img class="svc-card-img" src="Artboard 1.png" alt="Architecture">
             <div class="svc-card-strip"></div>
             <div class="svc-title-v">Architecture</div>
@@ -1607,11 +1572,10 @@
                 <span class="svc-content-label">Architecture · 01</span>
                 <h3 class="svc-content-title">Architecture</h3>
                 <p class="svc-content-desc">Architecture plans, 3D models, walkthroughs, renders, execution and turnkey solutions for spaces that endure.</p>
-                <a class="svc-content-btn" href="#" onclick="return false;">See More ↗</a>
             </div>
         </div>
 
-        <div class="svc-card" data-idx="1">
+        <div class="svc-card">
             <img class="svc-card-img" src="interior.jpg" alt="Interior Design">
             <div class="svc-card-strip"></div>
             <div class="svc-title-v">Interior Design</div>
@@ -1622,11 +1586,10 @@
                 <span class="svc-content-label">Interior Design · 02</span>
                 <h3 class="svc-content-title">Interior Design</h3>
                 <p class="svc-content-desc">3D models, walkthroughs, renders, execution and turnkey — crafting interiors that feel alive and grounded.</p>
-                <a class="svc-content-btn" href="#" onclick="return false;">See More ↗</a>
             </div>
         </div>
 
-        <div class="svc-card" data-idx="2">
+        <div class="svc-card">
             <img class="svc-card-img" src="UI UX.png" alt="Web Design">
             <div class="svc-card-strip"></div>
             <div class="svc-title-v">Web Design</div>
@@ -1637,11 +1600,10 @@
                 <span class="svc-content-label">Web Design · 03</span>
                 <h3 class="svc-content-title">Web Design</h3>
                 <p class="svc-content-desc">Seamless digital ecosystems and user-centric interfaces that bridge beauty with function.</p>
-                <a class="svc-content-btn" href="#" onclick="return false;">See More ↗</a>
             </div>
         </div>
 
-        <div class="svc-card" data-idx="3">
+        <div class="svc-card">
             <img class="svc-card-img" src="app.png" alt="App Design">
             <div class="svc-card-strip"></div>
             <div class="svc-title-v">App Design</div>
@@ -1652,11 +1614,10 @@
                 <span class="svc-content-label">App Design · 04</span>
                 <h3 class="svc-content-title">App Design</h3>
                 <p class="svc-content-desc">User-centric mobile application experiences — from wireframe to polished, pixel-perfect delivery.</p>
-                <a class="svc-content-btn" href="#" onclick="return false;">See More ↗</a>
             </div>
         </div>
 
-        <div class="svc-card" data-idx="4">
+        <div class="svc-card">
             <img class="svc-card-img" src="illustATION.jpg" alt="Illustrations">
             <div class="svc-card-strip"></div>
             <div class="svc-title-v">Illustration</div>
@@ -1667,7 +1628,6 @@
                 <span class="svc-content-label">Illustration · 05</span>
                 <h3 class="svc-content-title">Illustrations</h3>
                 <p class="svc-content-desc">Custom visual storytelling and digital art — narrative-driven imagery with a signature earthy aesthetic.</p>
-                <a class="svc-content-btn" href="#" onclick="return false;">See More ↗</a>
             </div>
         </div>
 
@@ -2123,22 +2083,19 @@
         showServices();
         if (!isMobile()) {
             initSvcAccordion();
-            gsap.from(".svc-card", { opacity: 0, y: 40, stagger: 0.08, duration: 0.65, ease: "power3.out" });
+            gsap.from(".svc-card", { opacity: 0, y: 36, stagger: 0.08, duration: 0.6, ease: "power3.out" });
         } else {
             gsap.from(".service-card", { opacity: 0, y: 20, stagger: 0.1, duration: 0.6, ease: "power2.out" });
         }
     });
 
     /* ========================================
-       ACCORDION CARD LOGIC — desktop only
+       ACCORDION — desktop only, init once
     ======================================== */
-    let accordionInited = false;
-
+    let _svcInited = false;
     function initSvcAccordion() {
-        if (isMobile()) return;
-        if (accordionInited) return;
-        accordionInited = true;
-
+        if (isMobile() || _svcInited) return;
+        _svcInited = true;
         const strip = document.getElementById('svcStrip');
         const cards = Array.from(strip.querySelectorAll('.svc-card'));
 
